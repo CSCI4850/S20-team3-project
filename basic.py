@@ -1,11 +1,17 @@
 #!/usr/bin/env python3.7
 
 import retro
+#import tensorflow as tf
 
 def main():
+    
+
+
     env = retro.make(game='GalagaDemonsOfDeath-Nes')
     obs = env.reset()
-    print(obs.shape)
+   
+    input_space = env.observation_space.shape[0]
+
     i = 1
     while True:
         # Chooses a random action from the space
