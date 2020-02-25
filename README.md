@@ -11,10 +11,14 @@ Create a 3.7 virtualenv
 
     virtualenv --python=/path/to/python3.7 venv # /usr/bin/python3.7 for example
 
+start the virtual environment- ensure that you are in your local repository
+
+    source venv/bin/activate
+    
 import the rom:
 
     python3 -m retro.import 'Galaga - Demons of Death (USA).nes'
 
-to run:
-	source venv/bin/activate
-	./basic.py	    
+after virtual environment is active:
+
+    ./basic.py	    
