@@ -14,4 +14,7 @@ Create a 3.7 virtualenv
 import the rom:
 
     python3 -m retro.import 'Galaga - Demons of Death (USA).nes'
-    
+
+to run:
+	source venv/bin/activate
+	./basic.py	    
