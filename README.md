@@ -21,4 +21,18 @@ import the rom:
 
 after virtual environment is active:
 
-    ./basic.py	    
+    ./basic.py
+    
+
+## Action Space
+As designated by Arcade Learning Environment Technical Manual[^1], we have
+selected five possible actions to control the game:
+
+- Fire       (1)
+- Right      (2)
+- Left       (3)
+- Right-Fire (11)
+- Left-Fire  (12)
+
+## References
+[^1]: https://github.com/openai/atari-py/blob/master/doc/manual/manual.pdf

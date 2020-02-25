@@ -1,5 +1,6 @@
 #!/usr/bin/env python3.7
 
+from gym import core, spaces
 import retro
 #import tensorflow as tf
 
@@ -11,7 +12,6 @@ def main():
     obs = env.reset()
    
     input_space = env.observation_space.shape[0]
-
     i = 1
     while True:
         # Chooses a random action from the space
@@ -19,7 +19,9 @@ def main():
         # rew: reward gained from action
         # done: if done state reached
         # info: debugging info, using this disqualifies official grading
-        obs, rew, done, info = env.step(env.action_space.sample())
+        action = env.action_space.sample()
+        print(action)
+        obs, rew, done, info = env.step([0,0,0,0,0,0,0,1,1])
         env.render()
         a = 0
         if i == 1:
