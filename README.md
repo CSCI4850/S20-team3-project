@@ -30,9 +30,9 @@ selected five possible actions to control the game:
 
 - Fire       (1)
 - Right      (2)
-- Left       (3)
-- Right-Fire (11)
-- Left-Fire  (12)
+- Right-Fire (3)
+- Left       (4)
+- Left-Fire  (5)
 
 ## References
 [1]: https://github.com/openai/atari-py/blob/master/doc/manual/manual.pdf

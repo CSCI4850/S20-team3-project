@@ -5,32 +5,22 @@ import retro
 #import tensorflow as tf
 
 def main():
-    
 
-
-    env = retro.make(game='GalagaDemonsOfDeath-Nes')
+    env = retro.make(game='GalagaDemonsOfDeath-Nes', use_restricted_actions=retro.Actions.DISCRETE)
     obs = env.reset()
+    env.action_space = spaces.Discrete(5)
    
     input_space = env.observation_space.shape[0]
-    i = 1
+
     while True:
         # Chooses a random action from the space
         # obs: observation of the screen after the action
         # rew: reward gained from action
         # done: if done state reached
         # info: debugging info, using this disqualifies official grading
-        action = env.action_space.sample()
-        print(action)
-        obs, rew, done, info = env.step([0,0,0,0,0,0,0,1,1])
+        action = env.action_space.sample()+1
+        obs, rew, done, info = env.step(action)
         env.render()
-        a = 0
-        if i == 1:
-            for x in obs:
-                for y in x:
-                    if y.any() != 0:
-                        a += 1
-            print(a)
-        i = 2
         if done:
             # Restarts the environment
             obs = env.reset()
