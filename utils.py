@@ -24,5 +24,12 @@ def preprocess(arr, channels, img_width, img_height):
     return arr.reshape(arr.shape[1], arr.shape[0]) # Pillow returns it backwards for some reason
 
 
-def huber_loss(target, predictions):
-    delta = params[
+def huber_loss(target, prediction):
+    delta = params['HUBER_DELTA']
+    loss = np.power(target - prediction, 2) if (target - prediction) <= delta else np.abs(target - prediction)
+    return loss
+
+def map_actions(action):
+    return action * 3
+    
+
