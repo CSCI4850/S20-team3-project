@@ -21,5 +21,7 @@ params = {
     'USE_FULL_ACTION_SPACE': True,
     'SMALL_ACTION_SPACE': 5,
     'NUMPY_SEED': 1239,
+    # --- Huber Loss Parameters ---
+    'HUBER_DELTA':1.0,
 
 }
