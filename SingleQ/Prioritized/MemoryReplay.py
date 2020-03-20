@@ -40,7 +40,20 @@ class ReplayMemory:
 
             current_sample = np.random.choice(self.size, sample_size, replace=False, p=probabilities)
 
-            #TODO: Apply sampled states to model
+            current_state = self.current_state[current_sample, :, :]
+            action = [self.action[j] for j in current_sample]
+            reward = self.reward[current_sample]
+            next_state = self.next_state[current_sample, :, :]
+            done = [self.done[j] for j in current_sample]
+
+            model_targets = model.predict(current_state)
+
+            targets = reward + gamma * np.amax(target_model.predict(next_state))
+            targets[done] = reward[done]
+
+            model_targets[range(sample_size), action] = targets
+
+            model.fit(current_state, model_targets, epochs=1, verbose=0, batch_size=sample_size)
 
             model.model.set_weights(model.model.get_weights() + delta)
 
@@ -61,7 +74,3 @@ class ReplayMemory:
     def td_error(model, target, state, next_state, reward, gamma):
         delta = r + gamma*target.getAction(next_state) - model.getAction()
         return delta
-
-class SumTree:
-    def __init__(self):
-        return None

@@ -16,6 +16,7 @@ params = {
     # --- Memory Replay Parameters ---
     'REPLAY_ITERATIONS': 64,
     'REPLAY_SAMPLE_SIZE': 500,
+    'REPLAY_MEMORY_SIZE': 2500,
     # --- Constant Parameters ---
     'ENVIRONMENT': 'GalagaDemonsOfDeath-Nes',
     'USE_FULL_ACTION_SPACE': True,
