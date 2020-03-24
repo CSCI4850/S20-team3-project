@@ -35,13 +35,14 @@ to watch the gameplay, simply use:
 
 ## Action Space
 As designated by Arcade Learning Environment Technical Manual[^1], we have
-selected five possible actions to control the game:
+selected six possible actions to control the game:
 
-- Fire       (1)
-- Right      (2)
-- Right-Fire (3)
-- Left       (4)
-- Left-Fire  (5)
+- Do-Nothing (0)
+- Left       (3)
+- Right      (6)
+- Fire       (9)
+- Left-Fire  (12)
+- Right-Fire (15)
 
 This exists as our "small action space", where we restrict the network's
 available actions to prevent it from "gaming" the reward system or getting

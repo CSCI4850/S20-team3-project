@@ -2,6 +2,7 @@
 # Contains basic functions that will be used throughout the project
 
 import numpy as np
+from HyperParameters import *
 from PIL import Image
 
 # Averages the RGB values in an entire image array
@@ -21,3 +22,14 @@ def preprocess(arr, channels, img_width, img_height):
         arr = grayscale(arr)
     arr = resize(arr, img_width, img_height)
     return arr.reshape(arr.shape[1], arr.shape[0]) # Pillow returns it backwards for some reason
+
+
+def huber_loss(target, prediction):
+    delta = params['HUBER_DELTA']
+    loss = np.power(target - prediction, 2) if (target - prediction) <= delta else np.abs(target - prediction)
+    return loss
+
+def map_actions(action):
+    return action * 3
+    
+
