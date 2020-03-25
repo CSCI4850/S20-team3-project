@@ -13,7 +13,13 @@ class GalagaAgent:
             self.image_height = image_height
             self.num_channels = num_channels
             self.model = make_model(state_size, action_size)
+        
+        def set_weights(self,weights):
+            self.model.set_weights(weights)
 
+        def get_weights(self):
+            self.model.get_weights()
+        
         def make_model(state_size, action_size):
             model = keras.Sequential()
             model.add(keras.layers.Conv2D(11, kernel_size=(15, 15), activation='relu', input_shape=state_size))
