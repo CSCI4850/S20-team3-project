@@ -5,10 +5,14 @@ import keras
 
 # ten enemy types and one projectile type so 11 feature detectors
 
-class convonet:
-        def __init__(self, state_size, action_size):
+class GalagaAgent:
+        def __init__(self, state_size, action_size, image_width, image_height, num_channels):
             self.state_size = state_size
             self.action_size = action_size
+            self.image_width = image_width
+            self.image_height = image_height
+            self.num_channels = num_channels
+            self.model = make_model(state_size, action_size)
 
         def make_model(state_size, action_size):
             model = keras.Sequential()
@@ -22,4 +26,5 @@ class convonet:
             model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Nadam(learning_rate = 0.01),
                             metrics=['accuracy'])
             model.summary()
-            return model
+
+        
