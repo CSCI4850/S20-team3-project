@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
+import sys
 import keras
 
 # ten enemy types and one projectile type so 11 feature detectors
 
-class GalagaAgent:
+class convonet:
         def __init__(self, state_size, action_size):
             self.state_size = state_size
             self.action_size = action_size
@@ -20,8 +21,5 @@ class GalagaAgent:
             model.add(keras.layers.Dense(action_size, activation='softmax'))
             model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Nadam(learning_rate = 0.01),
                             metrics=['accuracy'])
-        model.summary()
-        return model
-
-
-
+            model.summary()
+            return model
