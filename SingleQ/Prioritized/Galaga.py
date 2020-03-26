@@ -11,6 +11,7 @@ sys.path.append('../../') # Get top-level
 from HyperParameters import *
 from utils import preprocess
 
+import ReplayMemory
 
 def main():
 
@@ -31,6 +32,14 @@ def main():
     channels = 1 if params['GRAYSCALE'] else 3
     input_space = (env.observation_space.shape[0])
 
+    replay_iterations = params['REPLAY_ITERATIONS']
+    replay_sample_size = params['REPLAY_SAMPLE_SIZE']
+    replay_memory_size = params['REPLAY_MEMORY_SIZE']
+    replay_gamma = params['REPLAY_GAMMA']
+    replay_alpha = params['REPLAY_ALPHA']
+
+    memory = ReplayMemory(replay_memory_size, img_width, img_height, action_space)
+
     for epoch in range(epochs):
         state = env.reset();
         done = False
@@ -40,7 +49,23 @@ def main():
             action = env.action_space.sample()
             next_state, reward, done, info = env.step(action)
 
-            # reward, memory replay, etc
+            # Reward
+
+            # Memory Replay
+
+            pp_next = preprocess(next_state)
+
+            td_error = memory.td_error(model, target_model,
+                                       state, pp_next,
+                                       reward,
+                                       replay_gamma)
+
+            memory.remember(state,
+                            action,
+                            reward,
+                            pp_next,
+                            done,
+                            td_error)
 
             state = next_state
 
@@ -51,6 +76,7 @@ def main():
                 env.render()
 
         epsilon = epsilon * epsilon_gamma if epsilon > epsilon_min else epsilon_min
+        memory.replay(model, target_model, replay_sample_size, replay_gamma, replay_alpha)
 
 if __name__ == "__main__":
     np.random.seed(params['NUMPY_SEED'])
