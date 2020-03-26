@@ -10,6 +10,7 @@ params = {
     'EPSILON_GAMMA': 0.99,
     'EPSILON_MIN': 0.01,
     # --- Training Parameters ---
+    'BATCHES': 20,
     'EPOCHS': 100,
     'EPOCH_MAX_LENGTH': 10000,
     'USE_TIME_CUTOFF': False,
@@ -21,5 +22,6 @@ params = {
     'USE_FULL_ACTION_SPACE': True,
     'SMALL_ACTION_SPACE': 5,
     'NUMPY_SEED': 1239,
-
+    # --- Huber Loss Parameters ---
+    'HUBER_DELTA':1.0,
 }
