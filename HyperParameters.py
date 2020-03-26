@@ -19,12 +19,11 @@ params = {
     'REPLAY_ITERATIONS': 64,
     'REPLAY_SAMPLE_SIZE': 128,
     'REPLAY_MEMORY_SIZE': 1000,
-    'REPLAY_GAMMA': 0.1,
     'REPLAY_ALPHA': 0.1,
     # --- Constant Parameters ---
     'ENVIRONMENT': 'GalagaDemonsOfDeath-Nes',
-    'USE_FULL_ACTION_SPACE': True,
-    'SMALL_ACTION_SPACE': 15,
+    'USE_FULL_ACTION_SPACE': False,
+    'SMALL_ACTION_SPACE': 6,
     'NUMPY_SEED': 1239,
     # --- Huber Loss Parameters ---
     'HUBER_DELTA':1.0,

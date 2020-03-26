@@ -50,12 +50,12 @@ def main():
        
         while not done:
             state = preprocess(state, img_width, img_height, channels)
-            action = model.get_action(state) if np.random.random() > epsilon else map_actions(np.random.randint(0, action_space+1))
+            action = model.get_action(state) if np.random.random() > epsilon else map_actions(np.random.randint(0, action_space))
             next_state, reward, done, info = env.step(action)
 
             # reward, memory replay, etc
             pp_next = preprocess(next_state, img_width, img_height, channels)
-            memory.remember(state, action, reward, pp_next, done)
+            memory.remember(state, int(action/3), reward, pp_next, done)
 
             state = next_state
 

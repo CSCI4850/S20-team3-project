@@ -28,14 +28,24 @@ class GalagaAgent:
         
         #wrapper function for fit function
         def fit(self, states, targets, batch_size):
+            states = states.reshape(states.shape[0], params['IMG_WIDTH'], params['IMG_HEIGHT'],
+                                                  1 if params['GRAYSCALE'] else 3)
+
             return self.model.fit(states,targets,
                            batch_size = batch_size,
                            epochs = 1,
                            verbose = 0)
-            
+
+        def predict(self, states):
+            states = states.reshape(states.shape[0], params['IMG_WIDTH'], params['IMG_HEIGHT'],
+                                                  1 if params['GRAYSCALE'] else 3)
+            return self.model.predict(states)
+
         #takes a state and returns an appropriate action
         #uses utils.py map_action to map result to proper input 
         def get_action(self, current_state):
+            current_state = current_state.reshape(1, params['IMG_WIDTH'], params['IMG_HEIGHT'],
+                                                  1 if params['GRAYSCALE'] else 3)
             return map_actions(np.argmax(self.model.predict(current_state)))
 
         def build_model(self):
