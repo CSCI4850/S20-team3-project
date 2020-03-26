@@ -9,3 +9,4 @@ build
 htmlcov
 
 venv/
+/.ipynb_checkpoints/

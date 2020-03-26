@@ -45,12 +45,12 @@ class GalagaAgent:
                                                                                                                self.image_height,
                                                                                                                self.num_channels]))
             model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
-            model.add(tf.keras.layers.Conv2D(32, kernal_size=(3, 3), activation='relu', strides=2))
+            model.add(tf.keras.layers.Conv2D(32, kernel_size=(3, 3), activation='relu', strides=2))
             model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu'))
             model.add(tf.keras.layers.Dropout(.60))
             model.add(tf.keras.layers.Flatten())
             model.add(tf.keras.layers.Dense(512, activation='relu'))
-            model.add(tf.keras.layers.dropout(.30)
+            model.add(tf.keras.layers.Dropout(.30))
             model.add(tf.keras.layers.Dense(self.action_size, activation='softmax'))
 
             model.compile(loss=tf.keras.losses.categorical_crossentropy, 

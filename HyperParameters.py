@@ -14,9 +14,11 @@ params = {
     'EPOCH_MAX_LENGTH': 10000,
     'LEARNING_RATE': 0.002,
     'USE_TIME_CUTOFF': False,
+    'Q_LEARNING_GAMMA': 0.1,
     # --- Memory Replay Parameters ---
     'REPLAY_ITERATIONS': 64,
-    'REPLAY_SAMPLE_SIZE': 500,
+    'REPLAY_SAMPLE_SIZE': 128,
+    'REPLAY_MEMORY_SIZE': 1000,
     # --- Constant Parameters ---
     'ENVIRONMENT': 'GalagaDemonsOfDeath-Nes',
     'USE_FULL_ACTION_SPACE': True,
@@ -24,8 +26,4 @@ params = {
     'NUMPY_SEED': 1239,
     # --- Huber Loss Parameters ---
     'HUBER_DELTA':1.0,
-<<<<<<< HEAD
-
-=======
->>>>>>> GalagaAgent
 }
