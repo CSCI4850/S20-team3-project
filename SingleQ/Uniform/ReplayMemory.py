@@ -2,18 +2,17 @@
 import numpy as np
 
 class ReplayMemory:
-    def __init__(self, memory_size, state_size, action_size):
-        self.state_size = state_size
-        self.action_size = action_size
+    def __init__(self, memory_size, image_width, image_height, image_channels):
+        self.image_width = image_width
+        self.image_height = image_height
+        self.image_channels = image_channels
         self.size = 0
         self.maxsize = memory_size
         self.current_index = 0
-        self.current_state = np.zeros([memory_size, env.observation_space.shape[0], env.observation_space.shape[1],
-                                       env.observation_space.shape[2]])
+        self.current_state = np.zeros([memory_size, image_width, image_height, image_channels])
         self.action = [0] * memory_size
         self.reward = np.zeros([memory_size])
-        self.next_state = np.zeros([memory_size, env.observation_space.shape[0], env.observation_space.shape[1],
-                                    env.observation_space.shape[2]])
+        self.next_state = np.zeros([memory_size, image_width, image_height, image_channels])
         self.done = [False] * memory_size
 
     def remember(self, current_state, action, reward, next_state, done):
