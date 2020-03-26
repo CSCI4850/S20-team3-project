@@ -2,7 +2,6 @@
 
 import sys
 import tensorflow as tf
-import keras
 import numpy as np
 
 sys.path.append('../../') # Get top-level
