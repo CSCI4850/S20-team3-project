@@ -61,4 +61,7 @@ class ReplayMemory:
 
         # Once we have finished training, update the target model
         target_model.set_weights(model.get_weights())
+<<<<<<< HEAD
 
+=======
+>>>>>>> GalagaAgent
