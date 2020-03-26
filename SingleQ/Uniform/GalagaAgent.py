@@ -29,10 +29,10 @@ class GalagaAgent:
             return self.model.get_weights()
         
         #wrapper function for fit function
-        def fit(self, start_states):
-            return self.model.fit(start_states,
-                           batch_size = params['BATCHES'],
-                           epochs = params['FIT_EPOCHS'],
+        def fit(self, states, targets, batch_size):
+            return self.model.fit(states,targets,
+                           batch_size = batch_size,
+                           epochs = 1,
                            verbose = 0)
             
         #takes a state and returns an appropriate action
