@@ -10,10 +10,10 @@ import numpy as np
 sys.path.append('../../') # Get top-level
 from HyperParameters import *
 from utils import preprocess
-from GalagaAgent import convonet
+
 
 def main():
-    
+
     env = retro.make(game=params['ENVIRONMENT'],
                      use_restricted_actions=retro.Actions.DISCRETE)
 
