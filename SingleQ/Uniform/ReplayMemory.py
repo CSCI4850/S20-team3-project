@@ -41,7 +41,7 @@ class ReplayMemory:
                 current_state = self.current_state[current_sample, :, :, :]
             else:
                 current_state = self.current_state[current_sample, :, :]
-            #Removed pritn
+
             action = [self.action[j] for j in current_sample]
             reward = self.reward[current_sample]
             if self.image_channels > 1:

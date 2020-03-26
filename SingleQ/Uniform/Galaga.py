@@ -67,7 +67,7 @@ def main():
 
         memory.replay(model, target, replay_iterations, replay_sample_size, q_learning_gamma)
         epsilon = epsilon * epsilon_gamma if epsilon > epsilon_min else epsilon_min
-        print("\r Episode: %d/%d, Epsilon: %f" % (epoch, epochs, epsilon))
+        print("\r Episode: %d/%d, Epsilon: %f" % (epoch+1, epochs, epsilon))
 
 if __name__ == "__main__":
     np.random.seed(params['NUMPY_SEED'])
