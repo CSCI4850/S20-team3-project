@@ -9,18 +9,19 @@ import heapq
 import numpy as np
 
 class ReplayMemory:
-    def __init__(self, memory_size, frame_width, frame_height, channels, alpha=0.1):
-        self.frame_width = frame_width
-        self.frame_height = frame_height
+    def __init__(self, memory_size, image_width, image_height, channels, alpha=0.1):
+        self.image_width = image_width
+        self.image_height = image_height
         self.size = 0
         self.maxsize = memory_size
         self.current_index = 0
-        self.current_state = np.zeros([memory_size, frame_width, frame_height, channels])
+        self.current_state = np.zeros([memory_size, image_width, image_height, channels]) if channels > 1 else np.zeros([memory_size, image_width, image_height])
         self.action = [0]*memory_size
         self.reward = np.zeros([memory_size])
-        self.next_state = np.zeros([memory_size, frame_width, frame_height, channels])
+        self.next_state = np.zeros([memory_size, image_width, image_height, channels]) if channels > 1 else np.zeros([memory_size, image_width, image_height])
         self.done = [False]*memory_size
         self.td_errors = np.zeros([memory_size])
+        self.channels = channels
 
     def remember(self, current_state, action, reward, next_state, done, error):
         self.current_state[self.current_index, :, :] = current_state
@@ -32,18 +33,26 @@ class ReplayMemory:
         self.current_index = (self.current_index+1) % self.maxsize
         self.size = max(self.current_index, self.size)
 
-    def replay(model, target, num_samples, sample_size, gamma, alpha=1):
+    def replay(self, model, target, num_samples, sample_size, gamma, alpha=1):
         for i in range(num_samples):
             delta = 0
 
-            probabilities = get_sample_probabilities()
+            probabilities = self.get_sample_probabilities(alpha)
 
+            print(self.td_errors.shape)
+            print(probabilities.shape)
             current_sample = np.random.choice(self.size, sample_size, replace=False, p=probabilities)
 
-            current_state = self.current_state[current_sample, :, :]
+            if self.channels > 1:
+                current_state = self.current_state[current_sample, :, :, :]
+            else:
+                current_state = self.current_state[current_sample, :, :]
             action = [self.action[j] for j in current_sample]
             reward = self.reward[current_sample]
-            next_state = self.next_state[current_sample, :, :]
+            if self.channels > 1:
+                next_state = self.next_state[current_sample, :, :, :]
+            else:
+                next_state = self.next_state[current_sample, :, :]
             done = [self.done[j] for j in current_sample]
 
             model_targets = model.predict(current_state)
@@ -60,8 +69,9 @@ class ReplayMemory:
         target.set_weights(model.get_weights())
 
     def get_sample_probabilities(self, alpha):
+        td_errors = self.td_errors[0:self.current_index] if self.size < self.maxsize else self.td_errors
         ranks = np.argsort(np.absolute(self.td_errors)) # Ranked by |delta|, where delta = td_error
-        probabilities = [1 / i for i in range(len(ranks))] # 1/rank(i) (uniform for all sets of size j)
+        probabilities = [1 / (i+1) for i in range(len(ranks))] # 1/rank(i) (uniform for all sets of size j)
         probabilities = [pow(probabilities[i], alpha) / pow(np.sum(probabilities), alpha) for i in range(len(probabilities))] # pi / sum(p)
 
         # Matches the probabilities to the order of state memories
@@ -71,6 +81,10 @@ class ReplayMemory:
 
         return sample_probs
 
-    def td_error(model, target, state, next_state, reward, gamma):
-        delta = r + gamma*target.get_action(next_state) - model.get_action()
+    def td_error(self, model, target, state, next_state, reward, gamma):
+        delta = reward + gamma*target.get_action(next_state) - model.get_action(state)
+        return delta
+
+    def td_error(self, model_Q, target_Q, reward, gamma):
+        delta = reward + gamma*np.max(target_Q) - np.max(model_Q)
         return delta
