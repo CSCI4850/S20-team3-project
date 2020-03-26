@@ -13,7 +13,7 @@ params = {
     'EPOCHS': 100,
     'EPOCH_MAX_LENGTH': 10000,
     'LEARNING_RATE': 0.002,
-    'USE_TIME_CUTOFF': False,
+    'USE_TIME_CUTOFF': True,
     'Q_LEARNING_GAMMA': 0.1,
     'FRAMES_SINCE_SCORE_LIMIT': 500,
     # --- Memory Replay Parameters ---
