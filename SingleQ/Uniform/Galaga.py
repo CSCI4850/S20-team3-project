@@ -10,11 +10,15 @@ import numpy as np
 sys.path.append('../../') # Get top-level
 from HyperParameters import *
 from utils import preprocess
+<<<<<<< HEAD
 from GalagaAgent import GalagaAgent
 from ReplayMemory import ReplayMemory
+=======
+
+>>>>>>> PrioritizedReplay
 
 def main():
-    
+
     env = retro.make(game=params['ENVIRONMENT'],
                      use_restricted_actions=retro.Actions.DISCRETE)
 
