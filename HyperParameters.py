@@ -10,9 +10,7 @@ params = {
     'EPSILON_GAMMA': 0.99,
     'EPSILON_MIN': 0.01,
     # --- Training Parameters ---
-    'BATCHES': 20,
     'EPOCHS': 100,
-    'FIT_EPOCHS': 30,
     'EPOCH_MAX_LENGTH': 10000,
     'LEARNING_RATE': 0.002,
     'USE_TIME_CUTOFF': False,
