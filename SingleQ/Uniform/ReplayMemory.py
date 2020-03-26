@@ -4,6 +4,7 @@ import numpy as np
 from gym import core, spaces
 import sys
 import keras
+from HyperParameters import *
 
 def main():
     class ReplayMemory:

@@ -69,10 +69,10 @@ def main():
 
     def make_model(state_size, action_size):
         model = keras.Sequential()
-        model.add(keras.layers.Conv2D(64, kernel_size=(8, 8), activation='relu', input_shape=state_size))
-        model.add(keras.layers.Conv2D(64, (6, 6), activation='relu'))
+        model.add(keras.layers.Conv2D(4, kernel_size=(2, 2), activation='relu', input_shape=state_size))
+        model.add(keras.layers.Conv2D(2, (2, 2), activation='relu'))
         model.add(keras.layers.Flatten())
-        model.add(keras.layers.Dense(16, activation='relu'))
+        model.add(keras.layers.Dense(3, activation='relu'))
         model.add(keras.layers.Dense(action_size, activation='softmax'))
         model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Nadam(learning_rate = 0.005),
                       metrics=['accuracy'])
