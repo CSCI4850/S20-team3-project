@@ -48,7 +48,7 @@ def main():
         state = env.reset();
         done = False
        
-        while not done:
+        while True:
             state = preprocess(state, img_width, img_height, channels)
             action = model.get_action(state) if np.random.random() > epsilon else map_actions(np.random.randint(0, action_space))
             next_state, reward, done, info = env.step(action)
@@ -58,6 +58,9 @@ def main():
             memory.remember(state, int(action/3), reward, pp_next, done)
 
             state = next_state
+
+            if info['lives'] is -1:
+                break
 
             if use_time_cutoff and time > epoch_length:
                 break
