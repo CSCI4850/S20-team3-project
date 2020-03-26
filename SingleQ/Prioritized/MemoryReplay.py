@@ -55,9 +55,9 @@ class ReplayMemory:
 
             model.fit(current_state, model_targets, epochs=1, verbose=0, batch_size=sample_size)
 
-            model.model.set_weights(model.model.get_weights() + delta)
+            model.set_weights(model.get_weights() + delta)
 
-        target.model.set_weights(model.model.get_weights())
+        target.set_weights(model.get_weights())
 
     def get_sample_probabilities(self, alpha):
         ranks = np.argsort(np.absolute(self.td_errors)) # Ranked by |delta|, where delta = td_error
@@ -72,5 +72,5 @@ class ReplayMemory:
         return sample_probs
 
     def td_error(model, target, state, next_state, reward, gamma):
-        delta = r + gamma*target.getAction(next_state) - model.getAction()
+        delta = r + gamma*target.get_action(next_state) - model.get_action()
         return delta
