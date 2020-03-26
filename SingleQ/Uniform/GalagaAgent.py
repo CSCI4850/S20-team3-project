@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+import tensorflow as tf
 import keras
 import numpy as np
 
@@ -40,21 +41,21 @@ class GalagaAgent:
             return map_actions(np.argmax(self.model.predict(current_state)))
 
         def build_model(self):
-            model = keras.Sequential()
-            model.add(keras.layers.Conv2D(64, kernel_size=(3, 3), activation='relu', strides=3, input_shape = [self.image_width,
+            model = tf.keras.Sequential()
+            model.add(tf.keras.layers.Conv2D(64, kernel_size=(3, 3), activation='relu', strides=3, input_shape = [self.image_width,
                                                                                                                self.image_height,
                                                                                                                self.num_channels]))
-            model.add(keras.layers.MaxPooling2D(pool_size=(2, 2)))
-            model.add(keras.layers.Conv2D(32, kernal_size=(3, 3), activation='relu', strides=2))
-            model.add(keras.layers.Conv2D(32, (3, 3), activation='relu'))
-            model.add(keras.layers.Dropout(.60))
-            model.add(keras.layers.Flatten())
-            model.add(keras.layers.Dense(512, activation='relu'))
-            model.add(keras.layers.dropout(.30)
-            model.add(keras.layers.Dense(self.action_size, activation='softmax'))
+            model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
+            model.add(tf.keras.layers.Conv2D(32, kernal_size=(3, 3), activation='relu', strides=2))
+            model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu'))
+            model.add(tf.keras.layers.Dropout(.60))
+            model.add(tf.keras.layers.Flatten())
+            model.add(tf.keras.layers.Dense(512, activation='relu'))
+            model.add(tf.keras.layers.dropout(.30)
+            model.add(tf.keras.layers.Dense(self.action_size, activation='softmax'))
 
-            model.compile(loss=keras.losses.categorical_crossentropy, 
-                          optimizer=keras.optimizers.Nadam('LEARNING_RATE'),
+            model.compile(loss=tf.keras.losses.categorical_crossentropy, 
+                          optimizer=tf.keras.optimizers.Nadam('LEARNING_RATE'),
                           metrics=['accuracy'])
             
             model.summary()
