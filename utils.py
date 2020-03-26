@@ -17,7 +17,7 @@ def resize(arr, width, height):
     img = img.resize((width, height))
     return np.array(img)
 
-def preprocess(arr, channels, img_width, img_height):
+def preprocess(arr, img_width, img_height, channels):
     if channels == 1:
         arr = grayscale(arr)
     arr = resize(arr, img_width, img_height)

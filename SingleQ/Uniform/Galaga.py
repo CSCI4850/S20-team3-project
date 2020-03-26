@@ -9,7 +9,7 @@ import numpy as np
 
 sys.path.append('../../') # Get top-level
 from HyperParameters import *
-from utils import preprocess
+from utils import preprocess, map_actions
 from GalagaAgent import GalagaAgent
 from ReplayMemory import ReplayMemory
 
@@ -49,12 +49,12 @@ def main():
         done = False
        
         while not done:
-            state = preprocess(state, channels, img_width, img_height)
-            action = model.get_action(state) if np.random.random() > epsilon else map_action(np.random.randint(0, action_space+1))
+            state = preprocess(state, img_width, img_height, channels)
+            action = model.get_action(state) if np.random.random() > epsilon else map_actions(np.random.randint(0, action_space+1))
             next_state, reward, done, info = env.step(action)
 
             # reward, memory replay, etc
-            pp_next = preprocess(next_state)
+            pp_next = preprocess(next_state, img_width, img_height, channels)
             memory.remember(state, action, reward, pp_next, done)
 
             state = next_state

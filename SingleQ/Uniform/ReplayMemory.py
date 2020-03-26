@@ -47,5 +47,3 @@ class ReplayMemory:
                       epochs=1, verbose=0, batch_size=sample_size)
 
         target_model.set_weights(model.get_weights())
-
->>>>>>> origin/UniformReplayMemory
