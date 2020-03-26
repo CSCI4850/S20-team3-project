@@ -41,13 +41,12 @@ class GalagaAgent:
 
         def build_model(self):
             model = keras.Sequential()
-            model.add(keras.layers.Conv2D(64, kernel_size=(3, 3), activation='relu', strides=4, input_shape = [self.image_height,
-                                                                                                               self.image_width,
+            model.add(keras.layers.Conv2D(64, kernel_size=(3, 3), activation='relu', strides=3, input_shape = [self.image_width,
+                                                                                                               self.image_height,
                                                                                                                self.num_channels]))
             model.add(keras.layers.MaxPooling2D(pool_size=(2, 2)))
             model.add(keras.layers.Conv2D(32, kernal_size=(3, 3), activation='relu', strides=2))
             model.add(keras.layers.Conv2D(32, (3, 3), activation='relu'))
-            model.add(keras.layers.MaxPooling2D(pool_size=(2, 2)))
             model.add(keras.layers.Dropout(.60))
             model.add(keras.layers.Flatten())
             model.add(keras.layers.Dense(512, activation='relu'))
