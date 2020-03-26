@@ -22,17 +22,17 @@ class GalagaAgent:
         
         #wrapper function for set_weights
         def set_weights(self,weights):
-            return self.model.set_weights(weights)
+            self.model.set_weights(weights)
 
         #wrapper function for get_weights
         def get_weights(self):
             return self.model.get_weights()
         
         #wrapper function for fit function
-        def fit(self, start_states, target_state):
-            return self.model.fit(start_states, target_state,
-                           batch_size = 'BATCHES',
-                           epochs = 'EPOCHS',
+        def fit(self, start_states):
+            return self.model.fit(start_states,
+                           batch_size = params['BATCHES'],
+                           epochs = params['FIT_EPOCHS'],
                            verbose = 0)
             
         #takes a state and returns an appropriate action
@@ -55,9 +55,9 @@ class GalagaAgent:
             model.add(tf.keras.layers.Dense(self.action_size, activation='softmax'))
 
             model.compile(loss=tf.keras.losses.categorical_crossentropy, 
-                          optimizer=tf.keras.optimizers.Nadam('LEARNING_RATE'),
+                          optimizer=tf.keras.optimizers.Nadam(params['LEARNING_RATE']),
                           metrics=['accuracy'])
             
             model.summary()
-
+            return model
         
