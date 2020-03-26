@@ -10,8 +10,7 @@ import numpy as np
 sys.path.append('../../') # Get top-level
 from HyperParameters import *
 from utils import preprocess
-
-import ReplayMemory
+from ReplayMemory import ReplayMemory
 
 def main():
 
@@ -35,8 +34,9 @@ def main():
     replay_iterations = params['REPLAY_ITERATIONS']
     replay_sample_size = params['REPLAY_SAMPLE_SIZE']
     replay_memory_size = params['REPLAY_MEMORY_SIZE']
-    replay_gamma = params['REPLAY_GAMMA']
     replay_alpha = params['REPLAY_ALPHA']
+
+    q_learning_gamma = params['Q_LEARNING_GAMMA']
 
     memory = ReplayMemory(replay_memory_size, img_width, img_height, action_space)
 
@@ -58,7 +58,7 @@ def main():
             td_error = memory.td_error(model, target_model,
                                        state, pp_next,
                                        reward,
-                                       replay_gamma)
+                                       q_learning_gamma)
 
             memory.remember(state,
                             action,
@@ -76,7 +76,7 @@ def main():
                 env.render()
 
         epsilon = epsilon * epsilon_gamma if epsilon > epsilon_min else epsilon_min
-        memory.replay(model, target_model, replay_sample_size, replay_gamma, replay_alpha)
+        memory.replay(model, target_model, replay_sample_size, q_learning_gamma, replay_alpha)
 
 if __name__ == "__main__":
     np.random.seed(params['NUMPY_SEED'])

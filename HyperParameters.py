@@ -17,13 +17,10 @@ params = {
     'Q_LEARNING_GAMMA': 0.1,
     # --- Memory Replay Parameters ---
     'REPLAY_ITERATIONS': 64,
-<<<<<<< HEAD
     'REPLAY_SAMPLE_SIZE': 128,
     'REPLAY_MEMORY_SIZE': 1000,
-=======
-    'REPLAY_SAMPLE_SIZE': 500,
-    'REPLAY_MEMORY_SIZE': 2500,
->>>>>>> PrioritizedReplay
+    'REPLAY_GAMMA': 0.1,
+    'REPLAY_ALPHA': 0.1,
     # --- Constant Parameters ---
     'ENVIRONMENT': 'GalagaDemonsOfDeath-Nes',
     'USE_FULL_ACTION_SPACE': True,

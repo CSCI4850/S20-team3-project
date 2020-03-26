@@ -8,7 +8,6 @@ sys.path.append('../../') # Get top-level
 from HyperParameters import *
 from utils import map_actions
 
-
 class GalagaAgent:
         def __init__(self, action_size, image_width, image_height, num_channels):
             #variables used to set input shape for model
@@ -59,4 +58,3 @@ class GalagaAgent:
             
             model.summary()
             return model
-        
