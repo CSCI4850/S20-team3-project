@@ -47,8 +47,8 @@ def main():
     for epoch in range(epochs):
         state = env.reset();
         done = False
-       
-        while True:
+
+        while not done:
             state = preprocess(state, img_width, img_height, channels)
             action = model.get_action(state) if np.random.random() > epsilon else map_actions(np.random.randint(0, action_space))
             next_state, reward, done, info = env.step(action)
@@ -59,9 +59,6 @@ def main():
 
             state = next_state
 
-            if info['lives'] is -1:
-                break
-
             if use_time_cutoff and time > epoch_length:
                 break
 
@@ -70,6 +67,7 @@ def main():
 
         memory.replay(model, target, replay_iterations, replay_sample_size, q_learning_gamma)
         epsilon = epsilon * epsilon_gamma if epsilon > epsilon_min else epsilon_min
+        print("\r Episode: %d/%d, Epsilon: %f" % (epoch, epochs, epsilon))
 
 if __name__ == "__main__":
     np.random.seed(params['NUMPY_SEED'])
