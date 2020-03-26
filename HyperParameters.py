@@ -15,6 +15,7 @@ params = {
     'LEARNING_RATE': 0.002,
     'USE_TIME_CUTOFF': False,
     'Q_LEARNING_GAMMA': 0.1,
+    'FRAMES_SINCE_SCORE_LIMIT': 500,
     # --- Memory Replay Parameters ---
     'REPLAY_ITERATIONS': 64,
     'REPLAY_SAMPLE_SIZE': 128,

@@ -46,7 +46,8 @@ class GalagaAgent:
         def get_action(self, current_state):
             current_state = current_state.reshape(1, params['IMG_WIDTH'], params['IMG_HEIGHT'],
                                                   1 if params['GRAYSCALE'] else 3)
-            return map_actions(np.argmax(self.model.predict(current_state)))
+            Q = self.model.predict(current_state)
+            return map_actions(np.argmax(Q)), Q
 
         def build_model(self):
             model = tf.keras.Sequential()

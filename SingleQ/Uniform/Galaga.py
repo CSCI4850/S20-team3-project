@@ -6,6 +6,7 @@ import sys
 from gym import core, spaces
 import retro
 import numpy as np
+from collections import deque
 
 sys.path.append('../../') # Get top-level
 from HyperParameters import *
@@ -37,23 +38,43 @@ def main():
     replay_memory_size = params['REPLAY_MEMORY_SIZE']
 
     q_learning_gamma = params['Q_LEARNING_GAMMA']
+    frames_since_score_limit = params['FRAMES_SINCE_SCORE_LIMIT']
 
     model = GalagaAgent(action_space, img_width, img_height, channels)
     target = GalagaAgent(action_space, img_width, img_height, channels)
 
-
     memory = ReplayMemory(replay_memory_size, img_width, img_height, channels)
+    score_window = deque(maxlen=replay_memory_size)
 
     for epoch in range(epochs):
         state = env.reset();
         done = False
+        time_since_score_up = 0
+        last_score = 0
+        time = 0
 
         while not done:
             state = preprocess(state, img_width, img_height, channels)
-            action = model.get_action(state) if np.random.random() > epsilon else map_actions(np.random.randint(0, action_space))
+
+            chance = np.random.random()
+            if chance > epsilon:
+                action, model_Q = model.get_action(state)
+            else:
+                action, model_Q = map_actions(np.random.randint(0, action_space)), None
+
             next_state, reward, done, info = env.step(action)
 
             # reward, memory replay, etc
+            if info['score'] == last_score:
+                time_since_score_up += 1
+            else:
+                time_since_score_up = 0
+
+            if time_since_score_up >= frames_since_score_limit:
+                reward -= 1
+
+            last_score = info['score']
+
             pp_next = preprocess(next_state, img_width, img_height, channels)
             memory.remember(state, int(action/3), reward, pp_next, done)
 
@@ -65,9 +86,15 @@ def main():
             if "--play" in sys.argv:
                 env.render()
 
+            time += 1
+
         memory.replay(model, target, replay_iterations, replay_sample_size, q_learning_gamma)
         epsilon = epsilon * epsilon_gamma if epsilon > epsilon_min else epsilon_min
-        print("\r Episode: %d/%d, Epsilon: %f" % (epoch+1, epochs, epsilon))
+
+        score_window.append(info['score'])
+        mean_score = np.mean(score_window)
+
+        print("\r Episode: %d/%d, Epsilon: %f, Mean Score: %d" % (epoch+1, epochs, epsilon, mean_score))
 
 if __name__ == "__main__":
     np.random.seed(params['NUMPY_SEED'])
