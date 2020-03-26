@@ -3,6 +3,9 @@
 import sys
 import keras
 
+sys.path.append('../../') # Get top-level
+from HyperParameters import *
+
 # ten enemy types and one projectile type so 11 feature detectors
 
 class GalagaAgent:
@@ -20,7 +23,13 @@ class GalagaAgent:
         def get_weights(self):
             self.model.get_weights()
         
-        def make_model(state_size, action_size):
+        def fit(self, states):
+            self.model.fit(states,
+                           batch_size = ,
+                           epochs = 'EPOCHS',
+                           verbose = 1)
+
+        def __make_model(state_size, action_size):
             model = keras.Sequential()
             model.add(keras.layers.Conv2D(11, kernel_size=(15, 15), activation='relu', input_shape=state_size))
             model.add(keras.layers.Conv2D(22, (15, 15), activation='relu'))
@@ -29,8 +38,7 @@ class GalagaAgent:
             model.add(keras.layers.Flatten())
             model.add(keras.layers.Dense(22, activation='relu'))
             model.add(keras.layers.Dense(action_size, activation='softmax'))
-            model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Nadam(learning_rate = 0.01),
-                            metrics=['accuracy'])
+            model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Nadam(learning_rate = 0.01), metrics=['accuracy'])
             model.summary()
 
         
