@@ -13,6 +13,7 @@ params = {
     'BATCHES': 20,
     'EPOCHS': 100,
     'EPOCH_MAX_LENGTH': 10000,
+    'LEARNING_RATE': 0.002,
     'USE_TIME_CUTOFF': False,
     # --- Memory Replay Parameters ---
     'REPLAY_ITERATIONS': 64,
