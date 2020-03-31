@@ -54,6 +54,7 @@ def main():
         time_since_score_up = 0
         last_score = 0
         time = 0
+        reward_window = deque(maxlen=epoch_length)
 
         while not done:
             state = preprocess(state, img_width, img_height, channels)
@@ -75,6 +76,10 @@ def main():
             if time_since_score_up >= frames_since_score_limit:
                 reward -= 1
 
+            if reward > 0: # Bound reward [-1,1]
+                reward = 1
+
+            reward_window.append(reward)
             last_score = info['score']
 
             pp_next = preprocess(next_state, img_width, img_height, channels)
@@ -90,13 +95,14 @@ def main():
 
             time += 1
 
-        memory.replay(model, target, replay_iterations, replay_sample_size, q_learning_gamma)
         epsilon = epsilon * epsilon_gamma if epsilon > epsilon_min else epsilon_min
-
         score_window.append(info['score'])
         mean_score = np.mean(score_window)
+        print("\r Episode: %d/%d, Epsilon: %f, Mean Score: %d, Mean Reward: %f" % (epoch+1, epochs, epsilon, mean_score, np.mean(reward_window)))
 
-        print("\r Episode: %d/%d, Epsilon: %f, Mean Score: %d" % (epoch+1, epochs, epsilon, mean_score))
+        memory.replay(model, target, replay_iterations, replay_sample_size, q_learning_gamma)
+
+
 
     model.save_weights('m_weights.h5')
     target.save_weights('t_weights.h5')
