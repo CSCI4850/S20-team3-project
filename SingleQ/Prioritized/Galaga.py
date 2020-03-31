@@ -42,6 +42,8 @@ def main():
 
     model = GalagaAgent(action_space, img_width, img_height, channels)
     target = GalagaAgent(action_space, img_width, img_height, channels)
+    model.load_weights('m_weights.h5')
+    target.load_weights('t_weights.h5')
 
     memory = ReplayMemory(replay_memory_size, img_width, img_height, channels, action_space)
 
@@ -111,6 +113,9 @@ def main():
         mean_score = np.mean(score_window)
 
         print("\r Episode: %d/%d, Epsilon: %f, Mean Score: %d" % (epoch+1, epochs, epsilon, mean_score))
+
+    model.save_weights('m_weights.h5')
+    target.save_weights('t_weights.h5')
 
 if __name__ == "__main__":
     np.random.seed(params['NUMPY_SEED'])

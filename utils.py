@@ -2,6 +2,7 @@
 # Contains basic functions that will be used throughout the project
 
 import numpy as np
+import os
 from HyperParameters import *
 from PIL import Image
 
@@ -31,5 +32,3 @@ def huber_loss(target, prediction):
 
 def map_actions(action):
     return action * 3
-    
-

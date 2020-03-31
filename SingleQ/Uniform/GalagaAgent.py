@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+import os
 import tensorflow as tf
 import numpy as np
 
@@ -17,7 +18,7 @@ class GalagaAgent:
             self.num_channels = num_channels
             #creates model and stores it
             self.model = self.build_model()  
-        
+            
         #wrapper function for set_weights
         def set_weights(self,weights):
             self.model.set_weights(weights)
@@ -25,7 +26,16 @@ class GalagaAgent:
         #wrapper function for get_weights
         def get_weights(self):
             return self.model.get_weights()
-        
+
+        #wrapper function for save_weights
+        def save_weights(self, w_file):
+            self.model.save_weights(w_file)
+
+        #wrapper function for load_weights
+        def load_weights(self, w_file):
+            if os.path.isfile(w_file):
+	            self.model.load_weights(w_file)
+	            
         #wrapper function for fit function
         def fit(self, states, targets, batch_size):
             states = states.reshape(states.shape[0], params['IMG_WIDTH'], params['IMG_HEIGHT'],
