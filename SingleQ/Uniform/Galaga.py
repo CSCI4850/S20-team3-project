@@ -97,6 +97,9 @@ def main():
 
             time += 1
 
+            print(info)
+            
+
         epsilon = epsilon * epsilon_gamma if epsilon > epsilon_min else epsilon_min
         score_window.append(info['score'])
         mean_score = np.mean(score_window)
