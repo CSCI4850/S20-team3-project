@@ -7,7 +7,7 @@ params = {
     'GRAYSCALE': True,
     # --- Epsilon Parameters ---
     'EPSILON': 0.99,
-    'EPSILON_GAMMA': 0.99,
+    'EPSILON_GAMMA': 0.98,
     'EPSILON_MIN': 0.01,
     # --- Training Parameters ---
     'EPOCHS': 100,
@@ -19,8 +19,10 @@ params = {
     # --- Memory Replay Parameters ---
     'REPLAY_ITERATIONS': 128,
     'REPLAY_SAMPLE_SIZE': 64,
-    'REPLAY_MEMORY_SIZE': 5000,
-    'REPLAY_ALPHA': 0.1,
+    'REPLAY_MEMORY_SIZE': 10000,
+    'REPLAY_ALPHA': 0.6,
+    'REPLAY_BETA': 0.4,
+    'REPLAY_EPSILON': 0.01,
     # --- Constant Parameters ---
     'ENVIRONMENT': 'GalagaDemonsOfDeath-Nes',
     'USE_FULL_ACTION_SPACE': False,

@@ -47,7 +47,8 @@ class GalagaAgent:
                            verbose = 0)
 
         def predict(self, states):
-            states = states.reshape(states.shape[0], params['IMG_WIDTH'], params['IMG_HEIGHT'],
+            n_states = states.shape[0] if states.ndim is 4 else 1 # if single state passed, expand to (1, w, h, c), else (n, w, h, c)
+            states = states.reshape(n_states, params['IMG_WIDTH'], params['IMG_HEIGHT'],
                                                   1 if params['GRAYSCALE'] else 3)
             return self.model.predict(states)
 

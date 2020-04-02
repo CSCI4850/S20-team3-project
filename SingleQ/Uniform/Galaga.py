@@ -84,6 +84,10 @@ def main():
             reward_window.append(reward)
             last_score = info['score']
 
+            # Get the model_Q if it our action was random
+            if not type(model_Q) is np.ndarray:
+                model_Q = model.predict(state)
+
             pp_next = preprocess(next_state, img_width, img_height, channels)
             memory.remember(state, int(action/3), reward, pp_next, done)
 

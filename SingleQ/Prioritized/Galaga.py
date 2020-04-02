@@ -6,6 +6,7 @@ import sys
 from gym import core, spaces
 import retro
 import numpy as np
+from collections import deque
 
 sys.path.append('../../') # Get top-level
 from HyperParameters import *
@@ -46,6 +47,9 @@ def main():
     target.load_weights('t_weights.h5')
 
     memory = ReplayMemory(replay_memory_size, img_width, img_height, channels, action_space)
+
+    score_window = deque(maxlen=epochs)
+
 
     for epoch in range(epochs):
         state = env.reset();
@@ -117,7 +121,7 @@ def main():
         mean_score = np.mean(score_window)
         print("\r Episode: %d/%d, Epsilon: %f, Mean Score: %d, Mean Reward: %f" % (epoch+1, epochs, epsilon, mean_score, np.mean(reward_window)))
 
-        memory.replay(model, target, replay_sample_size, q_learning_gamma, replay_alpha)
+        memory.replay(model, target, replay_iterations, replay_sample_size, q_learning_gamma, replay_alpha)
 
     model.save_weights('m_weights.h5')
     target.save_weights('t_weights.h5')

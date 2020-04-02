@@ -39,9 +39,10 @@ class ReplayMemory:
 
             probabilities = self.get_sample_probabilities(alpha)
 
-            print(self.td_errors.shape)
-            print(probabilities.shape)
-            current_sample = np.random.choice(self.size, sample_size, replace=False, p=probabilities)
+            print(self.size, sample_size)
+            print(probabilities) #TODO: Make sure probs are right shape
+
+            current_sample = np.random.choice(self.size, sample_size, replace=False, p=np.array(probabilities))
 
             if self.channels > 1:
                 current_state = self.current_state[current_sample, :, :, :]
@@ -70,7 +71,7 @@ class ReplayMemory:
 
     def get_sample_probabilities(self, alpha):
         td_errors = self.td_errors[0:self.current_index] if self.size < self.maxsize else self.td_errors
-        ranks = np.argsort(np.absolute(self.td_errors)) # Ranked by |delta|, where delta = td_error
+        ranks = np.argsort(np.absolute(td_errors)) # Ranked by |delta|, where delta = td_error
         probabilities = [1 / (i+1) for i in range(len(ranks))] # 1/rank(i) (uniform for all sets of size j)
         probabilities = [pow(probabilities[i], alpha) / pow(np.sum(probabilities), alpha) for i in range(len(probabilities))] # pi / sum(p)
 
