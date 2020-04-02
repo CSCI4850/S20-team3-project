@@ -17,9 +17,9 @@ params = {
     'Q_LEARNING_GAMMA': 0.1,
     'FRAMES_SINCE_SCORE_LIMIT': 500,
     # --- Memory Replay Parameters ---
-    'REPLAY_ITERATIONS': 64,
-    'REPLAY_SAMPLE_SIZE': 128,
-    'REPLAY_MEMORY_SIZE': 1000,
+    'REPLAY_ITERATIONS': 128,
+    'REPLAY_SAMPLE_SIZE': 64,
+    'REPLAY_MEMORY_SIZE': 5000,
     'REPLAY_ALPHA': 0.1,
     # --- Constant Parameters ---
     'ENVIRONMENT': 'GalagaDemonsOfDeath-Nes',
