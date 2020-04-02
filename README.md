@@ -2,11 +2,38 @@
 
 Required Packages:
 
-    Python     == 3.7
-    gym-retro  >= 0.7.0
-    tensorflow == 2.1.0
-    
+    everything in the requirements.txt
+        
 And all their dependencies. These are available in the requirements.txt
+
+## Automatic setup
+
+A bash file, setup.sh, has been provided to setup the virtual environment and
+edit the Galaga gym-retro environment for you. To use this, ensure you have
+virtualenv and python3.7 installed, then simply run the
+script:
+
+    ./setup.sh
+
+Then, you must activate the virtual environment:
+
+    source venv/bin/activate
+
+After virtual environment is active, if you would like to see a short (5
+episode) demo, run the demo.sh script:
+
+    ./demo.sh
+
+Or, step into either SingleQ/Uniform/ or
+SingleQ/Prioritized/ and use:
+
+    ./Galaga.py
+    
+To watch the gameplay, simply use:
+
+    ./Galaga.py --play
+
+## Manual Setup
 
 Create a 3.7 virtualenv
 
@@ -23,15 +50,6 @@ install requirements:
 import the rom:
 
     python3 -m retro.import 'Galaga - Demons of Death (USA).nes'
-
-after virtual environment is active, step into either SingleQ/Uniform/ or
-SingleQ/Prioritized/ and use:
-
-    ./Galaga.py
-    
-to watch the gameplay, simply use:
-
-    ./Galaga.py --play
 
 ## Action Space
 As designated by Arcade Learning Environment Technical Manual[^1], we have
