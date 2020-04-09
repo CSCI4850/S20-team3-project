@@ -76,3 +76,9 @@ class GalagaAgent:
             
             model.summary()
             return model
+
+        def get_summary(self):
+            summary = []
+            self.model.summary(print_fn=lambda x: summary.append(x))
+            summary_str = "\n".join(summary)
+            return summary_str
