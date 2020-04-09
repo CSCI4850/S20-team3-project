@@ -48,6 +48,8 @@ def main():
     model.load_weights('m_weights.h5')
     target.load_weights('t_weights.h5')
 
+    target_update_every = params['TARGET_UPDATE_EVERY']
+
     memory = ReplayMemory(replay_memory_size, img_width, img_height, channels)
     score_window = deque(maxlen=replay_memory_size)
 
@@ -77,7 +79,7 @@ def main():
                 time_since_score_up = 0
 
             if time_since_score_up >= frames_since_score_limit:
-                reward -= 1
+                reward -= 10
 
             if reward > 0: # Bound reward [-1,1]
                 reward = 1
@@ -108,7 +110,9 @@ def main():
         print("\r Episode: %d/%d, Epsilon: %f, Score: %d, Mean Score: %d, Mean Reward: %f" % (epoch+1, epochs, epsilon, last_score, mean_score, np.mean(reward_window)))
 
         memory.replay(model, target, replay_iterations, replay_sample_size, q_learning_gamma)
-
+        if (epoch+1) % target_update_every == 0:
+            target.set_weights(model.get_weights())
+            print("Updated target weights")
 
 
     model.save_weights('m_weights.h5')
