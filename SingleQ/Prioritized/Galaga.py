@@ -3,14 +3,16 @@
 # Basal program for the Single Q-Learning Prioritized Replay implementation
 
 import sys
+import os
 from gym import core, spaces
 import retro
 import numpy as np
 from collections import deque
 
+os.environ['TF_FORCE_GPU_ALLOW_GROWTH']='true'
 sys.path.append('../../') # Get top-level
 from HyperParameters import *
-from utils import preprocess, map_actions
+from utils import preprocess, map_actions, log_create, log_params, log_output
 from GalagaAgent import GalagaAgent
 from ReplayMemory import ReplayMemory
 

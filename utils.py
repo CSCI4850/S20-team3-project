@@ -34,6 +34,7 @@ def huber_loss(target, prediction):
 def map_actions(action):
     return action * 3
 
+# Makes the logfile and returns its path
 def log_create():
     time = datetime.utcnow()
     time_str = time.strftime('%d%m%y_%H:%M:%S')
@@ -45,6 +46,7 @@ def log_create():
 
     return logpath
 
+# Initializes the logfile
 def log_params(logpath, summary):
     log = open(logpath, 'a')
     hParams = open('../../HyperParameters.py', 'r')
@@ -63,12 +65,21 @@ def log_params(logpath, summary):
     hParams.close()
     log.close()
 
-def log_output(logpath, output):
+
+# Will log and print all things desired. 
+# Recommended for things that are intended to be logged and printed.
+def log_output(logpath, *args):
     log = open(logpath, 'a')
-    log.write(output)
+    
+    for arg in args:
+        print(arg)
+        log.write(arg + '\n')
+    
     log.close()
 
+# Finds the logpath and returns it (Should only be called by log_create() as it only returns a directory)
 def get_logpath():
+    # Finds where the log should go
     pathlist = os.getcwd().split('/')
     basepath = '/'.join(pathlist[:-2]) 
     logpath = basepath + '/logs/' + '/'.join(pathlist[-2:]) + '/'
