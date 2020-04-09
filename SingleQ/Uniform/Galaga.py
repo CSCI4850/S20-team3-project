@@ -55,6 +55,8 @@ def main():
     memory = ReplayMemory(replay_memory_size, img_width, img_height, channels)
     score_window = deque(maxlen=replay_memory_size)
 
+    frame_count = 0
+
     for epoch in range(epochs):
         state = env.reset();
         done = False
@@ -105,21 +107,20 @@ def main():
                 env.render()
 
             time += 1
+            frame_count += 1
 
         epsilon = epsilon * epsilon_gamma if epsilon > epsilon_min else epsilon_min
         score_window.append(info['score'])
         mean_score = np.mean(score_window)
         
         output = "\rEpisode: %d/%d, Epsilon: %f, Mean Score: %d, Mean Reward: %f" % (epoch+1, epochs, epsilon, mean_score, np.mean(reward_window))
-        log_output(logpath, output)
+        log_output(logpath, output, "Total Frames Experienced: %d" % (frame_count))
 
         memory.replay(model, target, replay_iterations, replay_sample_size, q_learning_gamma)
 
-
-
     model.save_weights('m_weights.h5')
     target.save_weights('t_weights.h5')
-
+    log_output("Total Frames Experienced: %d" % (frame_count))
 
 if __name__ == "__main__":
     np.random.seed(params['NUMPY_SEED'])
