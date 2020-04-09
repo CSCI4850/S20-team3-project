@@ -7,7 +7,9 @@ from gym import core, spaces
 import retro
 import numpy as np
 from collections import deque
+import os
 
+os.environ['TF_FORCE_GPU_ALLOW_GROWTH']='true'
 sys.path.append('../../') # Get top-level
 from HyperParameters import *
 from utils import preprocess, map_actions
