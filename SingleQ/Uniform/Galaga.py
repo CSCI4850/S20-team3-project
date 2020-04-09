@@ -12,7 +12,7 @@ from collections import deque
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH']='true'
 sys.path.append('../../') # Get top-level
 from HyperParameters import *
-from utils import preprocess, map_actions
+from utils import preprocess, map_actions, log_create, log_params, log_output
 from GalagaAgent import GalagaAgent
 from ReplayMemory import ReplayMemory
 
@@ -44,6 +44,11 @@ def main():
 
     model = GalagaAgent(action_space, img_width, img_height, channels)
     target = GalagaAgent(action_space, img_width, img_height, channels)
+
+    logpath = log_create()
+    log_params(logpath, model.get_summary())
+
+    target.set_weights(model.get_weights())
     model.load_weights('m_weights.h5')
     target.load_weights('t_weights.h5')
 
@@ -85,8 +90,8 @@ def main():
             last_score = info['score']
 
             # Get the model_Q if it our action was random
-            if not type(model_Q) is np.ndarray:
-                model_Q = model.predict(state)
+#            if not type(model_Q) is np.ndarray:
+#                model_Q = model.predict(state)
 
             pp_next = preprocess(next_state, img_width, img_height, channels)
             memory.remember(state, int(action/3), reward, pp_next, done)
@@ -101,13 +106,12 @@ def main():
 
             time += 1
 
-            print(info)
-            
-
         epsilon = epsilon * epsilon_gamma if epsilon > epsilon_min else epsilon_min
         score_window.append(info['score'])
         mean_score = np.mean(score_window)
-        print("\r Episode: %d/%d, Epsilon: %f, Mean Score: %d, Mean Reward: %f" % (epoch+1, epochs, epsilon, mean_score, np.mean(reward_window)))
+        
+        output = "\rEpisode: %d/%d, Epsilon: %f, Mean Score: %d, Mean Reward: %f" % (epoch+1, epochs, epsilon, mean_score, np.mean(reward_window))
+        log_output(logpath, output)
 
         memory.replay(model, target, replay_iterations, replay_sample_size, q_learning_gamma)
 
@@ -115,6 +119,7 @@ def main():
 
     model.save_weights('m_weights.h5')
     target.save_weights('t_weights.h5')
+
 
 if __name__ == "__main__":
     np.random.seed(params['NUMPY_SEED'])
