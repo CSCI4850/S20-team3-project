@@ -25,6 +25,9 @@ class ReplayMemory:
 
             current_sample, importance, indices = self.sample(sample_size, alpha)
 
+            model.importance_weights = importance
+            model.importance_weights = importance
+           
             (current_state, next_state, action, reward, done) = current_sample
 
             current_state = np.array(current_state)
