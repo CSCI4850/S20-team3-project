@@ -3,89 +3,72 @@
 # Prioritized Memory Replay for DQN Agents
 # Source: "Prioritized Memory Replay", Schaul, et al.
 # Uses the temporal difference error to approximate how useful an experience is for learning
-#
 
 import heapq
 import numpy as np
+from collections import deque
 
 class ReplayMemory:
-    def __init__(self, memory_size, image_width, image_height, channels, alpha=0.1):
-        self.image_width = image_width
-        self.image_height = image_height
-        self.size = 0
+    def __init__(self, memory_size, epsilon):
         self.maxsize = memory_size
-        self.current_index = 0
-        self.current_state = np.zeros([memory_size, image_width, image_height, channels]) if channels > 1 else np.zeros([memory_size, image_width, image_height])
-        self.action = [0]*memory_size
-        self.reward = np.zeros([memory_size])
-        self.next_state = np.zeros([memory_size, image_width, image_height, channels]) if channels > 1 else np.zeros([memory_size, image_width, image_height])
-        self.done = [False]*memory_size
-        self.td_errors = np.zeros([memory_size])
-        self.channels = channels
+        self.experiences = deque(maxlen=memory_size)
+        self.priorities = deque(maxlen=memory_size)
+        self.epsilon = epsilon
 
-    def remember(self, current_state, action, reward, next_state, done, error):
-        self.current_state[self.current_index, :, :] = current_state
-        self.action[self.current_index] = action
-        self.reward[self.current_index] = reward
-        self.next_state[self.current_index, :, :] = next_state
-        self.done[self.current_index] = done
-        self.td_errors[self.current_index] = error
-        self.current_index = (self.current_index+1) % self.maxsize
-        self.size = max(self.current_index, self.size)
+    # Adds an experience to the buffer
+    def remember(self, experience):
+        self.experiences.append(experience) # state, next, action, reward, done
+        self.priorities.append(max(self.priorities, default=1))
 
-    def replay(self, model, target, num_samples, sample_size, gamma, alpha=1):
+    def replay(self, model, target, num_samples, sample_size, gamma, alpha, beta):
         for i in range(num_samples):
-            delta = 0
 
-            probabilities = self.get_sample_probabilities(alpha)
+            current_sample, importance, indices = self.sample(sample_size, alpha)
 
-            print(self.size, sample_size)
-            print(probabilities) #TODO: Make sure probs are right shape
+            (current_state, next_state, action, reward, done) = current_sample
 
-            current_sample = np.random.choice(self.size, sample_size, replace=False, p=np.array(probabilities))
+            current_state = np.array(current_state)
+            next_state = np.array(next_state)
+            action = np.array(action)
+            reward = np.array(reward)
+            done = np.array(done)
 
-            if self.channels > 1:
-                current_state = self.current_state[current_sample, :, :, :]
-            else:
-                current_state = self.current_state[current_sample, :, :]
-            action = [self.action[j] for j in current_sample]
-            reward = self.reward[current_sample]
-            if self.channels > 1:
-                next_state = self.next_state[current_sample, :, :, :]
-            else:
-                next_state = self.next_state[current_sample, :, :]
-            done = [self.done[j] for j in current_sample]
+            print(current_state.shape)
 
             model_targets = model.predict(current_state)
 
-            targets = reward + gamma * np.amax(target_model.predict(next_state))
+            targets = reward + gamma * np.amax(target.predict(next_state)) - np.amax(model_targets) # TD-Error
+            errors = targets
             targets[done] = reward[done]
 
             model_targets[range(sample_size), action] = targets
 
-            model.fit(current_state, model_targets, epochs=1, verbose=0, batch_size=sample_size)
+            model.fit(current_state, model_targets, batch_size=sample_size)
 
-            model.set_weights(model.get_weights() + delta)
+            errors = abs(errors) + self.epsilon
+            self.set_priorities(indices, errors)
 
-        target.set_weights(model.get_weights())
+    # Gathers a sample to fit the model on
+    def sample(self, batch_size, alpha=1.0, beta=1.0):
+        sample_size = min(len(self.experiences), batch_size)
+        probs = self.get_sample_probabilities(alpha)
+        indices = np.random.choice(range(len(self.experiences)), size=sample_size, p=probs)
+        importance = self.get_importance(probs, beta)# Importance sampling weights
+        samples = np.array(self.experiences)[indices]
+        return map(list, zip(*samples)), importance, indices
 
-    def get_sample_probabilities(self, alpha):
-        td_errors = self.td_errors[0:self.current_index] if self.size < self.maxsize else self.td_errors
-        ranks = np.argsort(np.absolute(td_errors)) # Ranked by |delta|, where delta = td_error
-        probabilities = [1 / (i+1) for i in range(len(ranks))] # 1/rank(i) (uniform for all sets of size j)
-        probabilities = [pow(probabilities[i], alpha) / pow(np.sum(probabilities), alpha) for i in range(len(probabilities))] # pi / sum(p)
+    # Determine the importance sampling weights
+    def get_importance(self, probabilities, beta):
+        importance = pow(1/len(self.experiences) * 1/probabilities, beta) # (( 1 / N ) * 1 / Prob(i))^beta
+        importance_normalized = importance / max(importance) # Normalize
+        return importance_normalized
 
-        # Matches the probabilities to the order of state memories
-        sample_probs = [0]*len(probabilities)
-        for i in range(len(ranks)):
-            sample_probs[ranks[i]] = probabilities[i]
+    # Determine rank-based probabilities for all states
+    def get_sample_probabilities(self, alpha=1.0):
+        scaled_priors = pow(np.array(self.priorities), alpha)
+        probs = scaled_priors / np.sum(scaled_priors) # Pi^alpha / sum(Pk^alpha)
+        return probs
 
-        return sample_probs
-
-    def td_error(self, model, target, state, next_state, reward, gamma):
-        delta = reward + gamma*target.get_action(next_state) - model.get_action(state)
-        return delta
-
-    def td_error(self, model_Q, target_Q, reward, gamma):
-        delta = reward + gamma*np.max(target_Q) - np.max(model_Q)
-        return delta
+    def set_priorities(self, indices, errors):
+        for i,e in zip(indices, errors):
+            self.priorities[i] = e
