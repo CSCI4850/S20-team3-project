@@ -3,16 +3,16 @@
 # Basal program for the Single Q-Learning Prioritized Replay implementation
 
 import sys
+import os
 from gym import core, spaces
 import retro
 import numpy as np
 from collections import deque
-import os
 
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH']='true'
 sys.path.append('../../') # Get top-level
 from HyperParameters import *
-from utils import preprocess, map_actions
+from utils import preprocess, map_actions, log_create, log_params, log_output
 from GalagaAgent import GalagaAgent
 from ReplayMemory import ReplayMemory
 
@@ -39,6 +39,7 @@ def main():
     replay_sample_size = params['REPLAY_SAMPLE_SIZE']
     replay_memory_size = params['REPLAY_MEMORY_SIZE']
     replay_alpha = params['REPLAY_ALPHA']
+    replay_beta = params['REPLAY_BETA']
 
     q_learning_gamma = params['Q_LEARNING_GAMMA']
     frames_since_score_limit = params['FRAMES_SINCE_SCORE_LIMIT']
@@ -48,10 +49,9 @@ def main():
     model.load_weights('m_weights.h5')
     target.load_weights('t_weights.h5')
 
-    memory = ReplayMemory(replay_memory_size, img_width, img_height, channels, action_space)
+    memory = ReplayMemory(replay_memory_size, params['REPLAY_EPSILON'])
 
     score_window = deque(maxlen=epochs)
-
 
     for epoch in range(epochs):
         state = env.reset();
@@ -78,9 +78,9 @@ def main():
                 time_since_score_up = 0
 
             if time_since_score_up >= frames_since_score_limit:
-                reward -= 1
+                reward -= 10
 
-            if reward > 0: # Bound reward [-1,1]
+            if reward > 0: # Bound reward [-10,1]
                 reward = 1
 
             reward_window.append(reward)
@@ -91,22 +91,8 @@ def main():
 
             pp_next = preprocess(next_state, img_width, img_height, channels)
 
-            if not type(model_Q) is np.ndarray:
-                model_Q = model.predict(state)
-
-            target_Q = target.predict(pp_next)
-           
-            td_error = memory.td_error(model_Q,
-                                       target_Q,
-                                       reward,
-                                       q_learning_gamma)
-
-            memory.remember(state,
-                            int(action/3),
-                            reward,
-                            pp_next,
-                            done,
-                            td_error)
+            experience = (state, pp_next, int(action/3), reward, done)
+            memory.remember(experience)
 
             state = next_state
 
@@ -123,7 +109,8 @@ def main():
         mean_score = np.mean(score_window)
         print("\r Episode: %d/%d, Epsilon: %f, Mean Score: %d, Mean Reward: %f" % (epoch+1, epochs, epsilon, mean_score, np.mean(reward_window)))
 
-        memory.replay(model, target, replay_iterations, replay_sample_size, q_learning_gamma, replay_alpha)
+        replay_beta = (replay_beta * epochs) / epochs # Raise to 1 over training
+        memory.replay(model, target, replay_iterations, replay_sample_size, q_learning_gamma, replay_alpha, replay_beta)
 
     model.save_weights('m_weights.h5')
     target.save_weights('t_weights.h5')
