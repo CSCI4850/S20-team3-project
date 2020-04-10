@@ -25,9 +25,6 @@ class ReplayMemory:
 
             current_sample, importance, indices = self.sample(sample_size, alpha)
 
-            model.importance_weights = importance
-            model.importance_weights = importance
-           
             (current_state, next_state, action, reward, done) = current_sample
 
             current_state = np.array(current_state)
@@ -36,11 +33,12 @@ class ReplayMemory:
             reward = np.array(reward)
             done = np.array(done)
 
-            print(current_state.shape)
+            print(current_state.shape, np.array(importance).shape)
 
             model_targets = model.predict(current_state)
+            is_weights = importance[indices]
 
-            targets = reward + gamma * np.amax(target.predict(next_state)) - np.amax(model_targets) # TD-Error
+            targets = is_weights * (reward + gamma * np.amax(target.predict(next_state)) - np.amax(model_targets)) + np.amax(model_targets) # TD-Error
             errors = targets
             targets[done] = reward[done]
 

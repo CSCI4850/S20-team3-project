@@ -80,7 +80,7 @@ class GalagaAgent:
             model.add(tf.keras.layers.Dense(512, activation='relu'))
             model.add(tf.keras.layers.Dense(self.action_size, activation='softmax'))
 
-            model.compile(loss=self.huber_loss,
+            model.compile(loss=tf.keras.losses.Huber(params['HUBER_DELTA']),
                           optimizer=tf.keras.optimizers.Adam(params['LEARNING_RATE']),
                           metrics=['accuracy'])
             
