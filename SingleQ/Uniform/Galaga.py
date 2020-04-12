@@ -85,7 +85,7 @@ def main():
                 time_since_score_up = 0
 
             if time_since_score_up >= frames_since_score_limit:
-                reward -= 10
+                reward -= 1
 
             if reward > 0: # Bound reward [-1,1]
                 reward = 1
@@ -115,14 +115,18 @@ def main():
         score_window.append(info['score'])
         mean_score = np.mean(score_window)
         
+        if (epoch+1) % target_update_every == 0:
+            target.set_weights(model.get_weights())
+            log_output(logpath, "Total Frames Experienced: %d" % (frame_count), "Updated target weights.")
+        
         output = "\rEpisode: %d/%d, Epsilon: %f, Mean Score: %d, Mean Reward: %f" % (epoch+1, epochs, epsilon, mean_score, np.mean(reward_window))
-        log_output(logpath, output, "Total Frames Experienced: %d" % (frame_count))
+        log_output(logpath, output)
 
         memory.replay(model, target, replay_iterations, replay_sample_size, q_learning_gamma)
 
     model.save_weights('m_weights.h5')
     target.save_weights('t_weights.h5')
-    log_output("Total Frames Experienced: %d" % (frame_count))
+    log_output(logpath, "Total Frames Experienced: %d" % (frame_count))
 
 if __name__ == "__main__":
     np.random.seed(params['NUMPY_SEED'])
