@@ -52,7 +52,13 @@ class ReplayMemory:
 
             model_targets = model.predict(current_state)
 
-            targets = reward + gamma * np.amax(target_model.predict(next_state))
+            innerQ = model.predict(next_state)
+            #print("model.predict : ", model.predict(next_state)[0])
+            #print("np.argmax : ", np.argmax(model.predict(next_state)))
+            #print("innerQ[0] : ", innerQ[0])
+            targetQ = target_model.predict(next_state)[[np.argmax(row) for row in innerQ]]
+            targets = reward + gamma * np.amax(targetQ)
+
             targets[done] = reward[done]
 
             model_targets[range(sample_size), action] = targets
