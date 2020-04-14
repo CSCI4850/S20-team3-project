@@ -117,7 +117,7 @@ def main():
         mean_score = np.mean(score_window)
         output = "\r Episode: %d/%d, Epsilon: %f, Mean Score: %d, Mean Reward: %f" % (epoch+1, epochs, epsilon, mean_score, np.mean(reward_window))
         
-        if epochs % params['UPDATE_TARGET_EVERY'] == 0:
+        if epochs % params['TARGET_UPDATE_EVERY'] == 0:
             target.set_weights(model.get_weights())
             log_output(logpath, output, "Total frames seen: %d" % (frame_count))
 
