@@ -37,7 +37,7 @@ def map_actions(action):
 # Makes the logfile and returns its path
 def log_create():
     time = datetime.utcnow()
-    time_str = time.strftime('%d%m%y_%H:%M:%S')
+    time_str = time.strftime('%d%m%y_%H-%M-%S')
     logpath = get_logpath() + time_str + '.log'
 
     log = open(logpath, 'w')
