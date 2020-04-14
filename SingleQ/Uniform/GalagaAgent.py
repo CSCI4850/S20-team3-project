@@ -75,7 +75,7 @@ class GalagaAgent:
             model.add(tf.keras.layers.Dense(self.action_size, activation='softmax'))
 
             model.compile(loss=tf.keras.losses.categorical_crossentropy,
-                          optimizer=tf.keras.optimizers.Adam(params['LEARNING_RATE']),
+                          optimizer=tf.keras.optimizers.Nadam(params['LEARNING_RATE']),
                           metrics=['accuracy'])
             
             model.summary()

@@ -43,15 +43,22 @@ def main():
 
     q_learning_gamma = params['Q_LEARNING_GAMMA']
     frames_since_score_limit = params['FRAMES_SINCE_SCORE_LIMIT']
+    
 
     model = GalagaAgent(action_space, img_width, img_height, channels)
     target = GalagaAgent(action_space, img_width, img_height, channels)
+    target.set_weights(model.get_weights())
     model.load_weights('m_weights.h5')
     target.load_weights('t_weights.h5')
+
+    logpath = log_create()
+    log_params(logpath, model.get_summary())
 
     memory = ReplayMemory(replay_memory_size, params['REPLAY_EPSILON'])
 
     score_window = deque(maxlen=epochs)
+
+    frame_count = 0
 
     for epoch in range(epochs):
         state = env.reset();
@@ -103,17 +110,23 @@ def main():
                 env.render()
 
             time += 1
+            frame_count += 1
 
         epsilon = epsilon * epsilon_gamma if epsilon > epsilon_min else epsilon_min
         score_window.append(info['score'])
         mean_score = np.mean(score_window)
-        print("\r Episode: %d/%d, Epsilon: %f, Mean Score: %d, Mean Reward: %f" % (epoch+1, epochs, epsilon, mean_score, np.mean(reward_window)))
+        output = "\r Episode: %d/%d, Epsilon: %f, Mean Score: %d, Mean Reward: %f" % (epoch+1, epochs, epsilon, mean_score, np.mean(reward_window))
+        
+        if epochs % params['UPDATE_TARGET_EVERY'] == 0:
+            target.set_weights(model.get_weights())
+            log_output(logpath, output, "Total frames seen: %d" % (frame_count))
 
         replay_beta = (replay_beta * epochs) / epochs # Raise to 1 over training
         memory.replay(model, target, replay_iterations, replay_sample_size, q_learning_gamma, replay_alpha, replay_beta)
 
     model.save_weights('m_weights.h5')
     target.save_weights('t_weights.h5')
+    log_output(logpath, "Total Frames Seen: %d" % (frame_count))
 
 if __name__ == "__main__":
     np.random.seed(params['NUMPY_SEED'])

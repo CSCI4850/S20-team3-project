@@ -33,8 +33,6 @@ class ReplayMemory:
             reward = np.array(reward)
             done = np.array(done)
 
-            print(current_state.shape, np.array(importance).shape)
-
             model_targets = model.predict(current_state)
             is_weights = importance[indices]
 
