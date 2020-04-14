@@ -1,0 +1,842 @@
+Log created: 2020-04-10 01:12:00.702711
+
+SUMMARY:
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              (None, 78, 78, 64)        3200      
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) (None, 39, 39, 64)        0         
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 35, 35, 32)        51232     
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 31, 31, 16)        12816     
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 15, 15, 16)        0         
+_________________________________________________________________
+flatten (Flatten)            (None, 3600)              0         
+_________________________________________________________________
+dense (Dense)                (None, 1024)              3687424   
+_________________________________________________________________
+dense_1 (Dense)              (None, 512)               524800    
+_________________________________________________________________
+dense_2 (Dense)              (None, 6)                 3078      
+=================================================================
+Total params: 4,282,550
+Trainable params: 4,282,550
+Non-trainable params: 0
+_________________________________________________________________
+
+HYPER PARAMETERS:
+params = {
+    # --- Input Image Parameters ---
+    'IMG_WIDTH': 84,
+    'IMG_HEIGHT': 84,
+    'GRAYSCALE': True,
+    # --- Epsilon Parameters ---
+    'EPSILON': 0.99,
+    'EPSILON_GAMMA': 0.995,
+    'EPSILON_MIN': 0.01,
+    # --- Training Parameters ---
+    'EPOCHS': 1000,
+    'EPOCH_MAX_LENGTH': 20000,
+    'LEARNING_RATE': 0.00025,
+    'USE_TIME_CUTOFF': True,
+    'Q_LEARNING_GAMMA': 0.99,
+    'FRAMES_SINCE_SCORE_LIMIT': 500,
+    # --- Memory Replay Parameters ---
+    'REPLAY_ITERATIONS': 4,
+    'REPLAY_SAMPLE_SIZE': 8,
+    'REPLAY_MEMORY_SIZE': 100000,
+    'REPLAY_ALPHA': 0.6,
+    'REPLAY_BETA': 0.1,
+    'REPLAY_EPSILON': 0.01,
+    'TARGET_UPDATE_EVERY': 5,
+    # --- Constant Parameters ---
+    'ENVIRONMENT': 'GalagaDemonsOfDeath-Nes',
+    'USE_FULL_ACTION_SPACE': False,
+    'SMALL_ACTION_SPACE': 6,
+    'NUMPY_SEED': 1239,
+    # --- Huber Loss Parameters ---
+    'HUBER_DELTA':0.75,
+}
+
+
+OUTPUTS:
+
+Episode: 1/1000, Epsilon: 0.985050, Mean Score: 4840, Mean Reward: -0.084928
+
+Episode: 2/1000, Epsilon: 0.980125, Mean Score: 4875, Mean Reward: 0.011152
+
+Episode: 3/1000, Epsilon: 0.975224, Mean Score: 5673, Mean Reward: -0.069531
+
+Episode: 4/1000, Epsilon: 0.970348, Mean Score: 5535, Mean Reward: 0.008976
+Total Frames Experienced: 20681
+Updated target weights.
+
+Episode: 5/1000, Epsilon: 0.965496, Mean Score: 5462, Mean Reward: 0.010526
+
+Episode: 6/1000, Epsilon: 0.960669, Mean Score: 6278, Mean Reward: -0.112089
+
+Episode: 7/1000, Epsilon: 0.955865, Mean Score: 5940, Mean Reward: -0.011739
+
+Episode: 8/1000, Epsilon: 0.951086, Mean Score: 5607, Mean Reward: -0.099760
+
+Episode: 9/1000, Epsilon: 0.946331, Mean Score: 5830, Mean Reward: -0.087646
+Total Frames Experienced: 46005
+Updated target weights.
+
+Episode: 10/1000, Epsilon: 0.941599, Mean Score: 5655, Mean Reward: -0.055097
+
+Episode: 11/1000, Epsilon: 0.936891, Mean Score: 5826, Mean Reward: -0.009127
+
+Episode: 12/1000, Epsilon: 0.932207, Mean Score: 6031, Mean Reward: 0.004732
+
+Episode: 13/1000, Epsilon: 0.927546, Mean Score: 5813, Mean Reward: -0.015125
+
+Episode: 14/1000, Epsilon: 0.922908, Mean Score: 6064, Mean Reward: -0.006827
+Total Frames Experienced: 70291
+Updated target weights.
+
+Episode: 15/1000, Epsilon: 0.918293, Mean Score: 5897, Mean Reward: 0.011688
+
+Episode: 16/1000, Epsilon: 0.913702, Mean Score: 5741, Mean Reward: -0.012997
+
+Episode: 17/1000, Epsilon: 0.909133, Mean Score: 5692, Mean Reward: -0.128706
+
+Episode: 18/1000, Epsilon: 0.904588, Mean Score: 5717, Mean Reward: -0.291571
+
+Episode: 19/1000, Epsilon: 0.900065, Mean Score: 5606, Mean Reward: -0.349035
+Total Frames Experienced: 98859
+Updated target weights.
+
+Episode: 20/1000, Epsilon: 0.895564, Mean Score: 5754, Mean Reward: -0.155151
+
+Episode: 21/1000, Epsilon: 0.891087, Mean Score: 5720, Mean Reward: -0.090209
+
+Episode: 22/1000, Epsilon: 0.886631, Mean Score: 5695, Mean Reward: -0.198980
+
+Episode: 23/1000, Epsilon: 0.882198, Mean Score: 5626, Mean Reward: -0.357143
+
+Episode: 24/1000, Epsilon: 0.877787, Mean Score: 5916, Mean Reward: -0.182109
+Total Frames Experienced: 130919
+Updated target weights.
+
+Episode: 25/1000, Epsilon: 0.873398, Mean Score: 5999, Mean Reward: -0.058648
+
+Episode: 26/1000, Epsilon: 0.869031, Mean Score: 6031, Mean Reward: -0.374066
+
+Episode: 27/1000, Epsilon: 0.864686, Mean Score: 6187, Mean Reward: -0.001252
+
+Episode: 28/1000, Epsilon: 0.860362, Mean Score: 6195, Mean Reward: -0.164591
+
+Episode: 29/1000, Epsilon: 0.856061, Mean Score: 6134, Mean Reward: -0.750539
+Total Frames Experienced: 191422
+Updated target weights.
+
+Episode: 30/1000, Epsilon: 0.851780, Mean Score: 6045, Mean Reward: -0.832650
+
+Episode: 31/1000, Epsilon: 0.847521, Mean Score: 5994, Mean Reward: -0.384937
+
+Episode: 32/1000, Epsilon: 0.843284, Mean Score: 6130, Mean Reward: -0.021992
+
+Episode: 33/1000, Epsilon: 0.839067, Mean Score: 6054, Mean Reward: -0.030871
+
+Episode: 34/1000, Epsilon: 0.834872, Mean Score: 5998, Mean Reward: -0.062156
+Total Frames Experienced: 216254
+Updated target weights.
+
+Episode: 35/1000, Epsilon: 0.830698, Mean Score: 5929, Mean Reward: -0.206532
+
+Episode: 36/1000, Epsilon: 0.826544, Mean Score: 5936, Mean Reward: -0.053459
+
+Episode: 37/1000, Epsilon: 0.822412, Mean Score: 5998, Mean Reward: -0.345606
+
+Episode: 38/1000, Epsilon: 0.818299, Mean Score: 5972, Mean Reward: -0.105594
+
+Episode: 39/1000, Epsilon: 0.814208, Mean Score: 5972, Mean Reward: -0.182115
+Total Frames Experienced: 253559
+Updated target weights.
+
+Episode: 40/1000, Epsilon: 0.810137, Mean Score: 5927, Mean Reward: -0.678494
+
+Episode: 41/1000, Epsilon: 0.806086, Mean Score: 5859, Mean Reward: -0.804650
+
+Episode: 42/1000, Epsilon: 0.802056, Mean Score: 5786, Mean Reward: -0.829250
+
+Episode: 43/1000, Epsilon: 0.798046, Mean Score: 5729, Mean Reward: -0.822450
+
+Episode: 44/1000, Epsilon: 0.794055, Mean Score: 5708, Mean Reward: -0.830200
+Total Frames Experienced: 353564
+Updated target weights.
+
+Episode: 45/1000, Epsilon: 0.790085, Mean Score: 5635, Mean Reward: -0.828100
+
+Episode: 46/1000, Epsilon: 0.786135, Mean Score: 5575, Mean Reward: -0.800150
+
+Episode: 47/1000, Epsilon: 0.782204, Mean Score: 5541, Mean Reward: -0.138272
+
+Episode: 48/1000, Epsilon: 0.778293, Mean Score: 5585, Mean Reward: -0.601366
+
+Episode: 49/1000, Epsilon: 0.774401, Mean Score: 5548, Mean Reward: -0.740379
+Total Frames Experienced: 416306
+Updated target weights.
+
+Episode: 50/1000, Epsilon: 0.770529, Mean Score: 5527, Mean Reward: -0.398942
+
+Episode: 51/1000, Epsilon: 0.766677, Mean Score: 5481, Mean Reward: -0.547674
+
+Episode: 52/1000, Epsilon: 0.762843, Mean Score: 5444, Mean Reward: -0.230786
+
+Episode: 53/1000, Epsilon: 0.759029, Mean Score: 5421, Mean Reward: -0.342200
+
+Episode: 54/1000, Epsilon: 0.755234, Mean Score: 5395, Mean Reward: 0.010956
+Total Frames Experienced: 438264
+Updated target weights.
+
+Episode: 55/1000, Epsilon: 0.751458, Mean Score: 5372, Mean Reward: 0.003706
+
+Episode: 56/1000, Epsilon: 0.747701, Mean Score: 5348, Mean Reward: -0.018846
+
+Episode: 57/1000, Epsilon: 0.743962, Mean Score: 5322, Mean Reward: -0.002885
+
+Episode: 58/1000, Epsilon: 0.740242, Mean Score: 5390, Mean Reward: -0.194545
+
+Episode: 59/1000, Epsilon: 0.736541, Mean Score: 5416, Mean Reward: -0.105677
+Total Frames Experienced: 466124
+Updated target weights.
+
+Episode: 60/1000, Epsilon: 0.732858, Mean Score: 5385, Mean Reward: -0.319683
+
+Episode: 61/1000, Epsilon: 0.729194, Mean Score: 5417, Mean Reward: -0.026865
+
+Episode: 62/1000, Epsilon: 0.725548, Mean Score: 5488, Mean Reward: 0.001133
+
+Episode: 63/1000, Epsilon: 0.721920, Mean Score: 5448, Mean Reward: -0.837900
+
+Episode: 64/1000, Epsilon: 0.718311, Mean Score: 5415, Mean Reward: -0.783150
+Total Frames Experienced: 536807
+Updated target weights.
+
+Episode: 65/1000, Epsilon: 0.714719, Mean Score: 5385, Mean Reward: -0.812550
+
+Episode: 66/1000, Epsilon: 0.711146, Mean Score: 5407, Mean Reward: 0.015292
+
+Episode: 67/1000, Epsilon: 0.707590, Mean Score: 5400, Mean Reward: -0.163971
+
+Episode: 68/1000, Epsilon: 0.704052, Mean Score: 5376, Mean Reward: -0.829950
+
+Episode: 69/1000, Epsilon: 0.700532, Mean Score: 5336, Mean Reward: -0.900800
+Total Frames Experienced: 606611
+Updated target weights.
+
+Episode: 70/1000, Epsilon: 0.697029, Mean Score: 5298, Mean Reward: -0.924900
+
+Episode: 71/1000, Epsilon: 0.693544, Mean Score: 5339, Mean Reward: -0.194566
+
+Episode: 72/1000, Epsilon: 0.690076, Mean Score: 5427, Mean Reward: -0.230987
+
+Episode: 73/1000, Epsilon: 0.686626, Mean Score: 5458, Mean Reward: -0.004494
+
+Episode: 74/1000, Epsilon: 0.683193, Mean Score: 5475, Mean Reward: -0.045045
+Total Frames Experienced: 640820
+Updated target weights.
+
+Episode: 75/1000, Epsilon: 0.679777, Mean Score: 5475, Mean Reward: -0.032913
+
+Episode: 76/1000, Epsilon: 0.676378, Mean Score: 5449, Mean Reward: -0.563045
+
+Episode: 77/1000, Epsilon: 0.672996, Mean Score: 5418, Mean Reward: -0.814750
+
+Episode: 78/1000, Epsilon: 0.669631, Mean Score: 5389, Mean Reward: -0.879750
+
+Episode: 79/1000, Epsilon: 0.666283, Mean Score: 5365, Mean Reward: -0.776677
+Total Frames Experienced: 726869
+Updated target weights.
+
+Episode: 80/1000, Epsilon: 0.662951, Mean Score: 5340, Mean Reward: -0.825350
+
+Episode: 81/1000, Epsilon: 0.659637, Mean Score: 5360, Mean Reward: 0.006466
+
+Episode: 82/1000, Epsilon: 0.656338, Mean Score: 5349, Mean Reward: -0.025435
+
+Episode: 83/1000, Epsilon: 0.653057, Mean Score: 5341, Mean Reward: -0.099216
+
+Episode: 84/1000, Epsilon: 0.649791, Mean Score: 5317, Mean Reward: -0.774074
+Total Frames Experienced: 774366
+Updated target weights.
+
+Episode: 85/1000, Epsilon: 0.646542, Mean Score: 5285, Mean Reward: -0.870600
+
+Episode: 86/1000, Epsilon: 0.643310, Mean Score: 5348, Mean Reward: -0.106773
+
+Episode: 87/1000, Epsilon: 0.640093, Mean Score: 5348, Mean Reward: -0.131412
+
+Episode: 88/1000, Epsilon: 0.636893, Mean Score: 5332, Mean Reward: -0.007917
+
+Episode: 89/1000, Epsilon: 0.633708, Mean Score: 5367, Mean Reward: -0.031809
+Total Frames Experienced: 801689
+Updated target weights.
+
+Episode: 90/1000, Epsilon: 0.630540, Mean Score: 5392, Mean Reward: -0.044367
+
+Episode: 91/1000, Epsilon: 0.627387, Mean Score: 5401, Mean Reward: -0.112640
+
+Episode: 92/1000, Epsilon: 0.624250, Mean Score: 5390, Mean Reward: -0.050514
+
+Episode: 93/1000, Epsilon: 0.621129, Mean Score: 5393, Mean Reward: -0.067187
+
+Episode: 94/1000, Epsilon: 0.618023, Mean Score: 5405, Mean Reward: -0.070948
+Total Frames Experienced: 823528
+Updated target weights.
+
+Episode: 95/1000, Epsilon: 0.614933, Mean Score: 5424, Mean Reward: -0.044079
+
+Episode: 96/1000, Epsilon: 0.611858, Mean Score: 5431, Mean Reward: -0.581395
+
+Episode: 97/1000, Epsilon: 0.608799, Mean Score: 5400, Mean Reward: -0.823197
+
+Episode: 98/1000, Epsilon: 0.605755, Mean Score: 5371, Mean Reward: -0.899900
+
+Episode: 99/1000, Epsilon: 0.602726, Mean Score: 5344, Mean Reward: -0.900950
+Total Frames Experienced: 893272
+Updated target weights.
+
+Episode: 100/1000, Epsilon: 0.599713, Mean Score: 5357, Mean Reward: 0.013036
+
+Episode: 101/1000, Epsilon: 0.596714, Mean Score: 5359, Mean Reward: -0.147332
+
+Episode: 102/1000, Epsilon: 0.593731, Mean Score: 5356, Mean Reward: -0.150766
+
+Episode: 103/1000, Epsilon: 0.590762, Mean Score: 5338, Mean Reward: -0.113609
+
+Episode: 104/1000, Epsilon: 0.587808, Mean Score: 5361, Mean Reward: -0.181686
+Total Frames Experienced: 917749
+Updated target weights.
+
+Episode: 105/1000, Epsilon: 0.584869, Mean Score: 5353, Mean Reward: -0.115321
+
+Episode: 106/1000, Epsilon: 0.581945, Mean Score: 5353, Mean Reward: -0.475703
+
+Episode: 107/1000, Epsilon: 0.579035, Mean Score: 5334, Mean Reward: -0.853700
+
+Episode: 108/1000, Epsilon: 0.576140, Mean Score: 5313, Mean Reward: -0.807450
+
+Episode: 109/1000, Epsilon: 0.573259, Mean Score: 5411, Mean Reward: -0.095070
+Total Frames Experienced: 982633
+Updated target weights.
+
+Episode: 110/1000, Epsilon: 0.570393, Mean Score: 5409, Mean Reward: -0.126371
+
+Episode: 111/1000, Epsilon: 0.567541, Mean Score: 5380, Mean Reward: -0.881800
+
+Episode: 112/1000, Epsilon: 0.564703, Mean Score: 5362, Mean Reward: -0.026271
+
+Episode: 113/1000, Epsilon: 0.561880, Mean Score: 5378, Mean Reward: -0.012837
+
+Episode: 114/1000, Epsilon: 0.559070, Mean Score: 5363, Mean Reward: -0.062176
+Total Frames Experienced: 1021890
+Updated target weights.
+
+Episode: 115/1000, Epsilon: 0.556275, Mean Score: 5399, Mean Reward: -0.061868
+
+Episode: 116/1000, Epsilon: 0.553494, Mean Score: 5409, Mean Reward: -0.048678
+
+Episode: 117/1000, Epsilon: 0.550726, Mean Score: 5408, Mean Reward: -0.225431
+
+Episode: 118/1000, Epsilon: 0.547972, Mean Score: 5452, Mean Reward: 0.013000
+
+Episode: 119/1000, Epsilon: 0.545233, Mean Score: 5463, Mean Reward: -0.083080
+Total Frames Experienced: 1048852
+Updated target weights.
+
+Episode: 120/1000, Epsilon: 0.542506, Mean Score: 5472, Mean Reward: 0.013362
+
+Episode: 121/1000, Epsilon: 0.539794, Mean Score: 5487, Mean Reward: -0.167083
+
+Episode: 122/1000, Epsilon: 0.537095, Mean Score: 5525, Mean Reward: -0.048265
+
+Episode: 123/1000, Epsilon: 0.534409, Mean Score: 5514, Mean Reward: -0.091586
+
+Episode: 124/1000, Epsilon: 0.531737, Mean Score: 5504, Mean Reward: -0.271315
+Total Frames Experienced: 1078955
+Updated target weights.
+
+Episode: 125/1000, Epsilon: 0.529079, Mean Score: 5520, Mean Reward: -0.063087
+
+Episode: 126/1000, Epsilon: 0.526433, Mean Score: 5537, Mean Reward: -0.133568
+
+Episode: 127/1000, Epsilon: 0.523801, Mean Score: 5526, Mean Reward: -0.066518
+
+Episode: 128/1000, Epsilon: 0.521182, Mean Score: 5522, Mean Reward: -0.001433
+
+Episode: 129/1000, Epsilon: 0.518576, Mean Score: 5522, Mean Reward: -0.028843
+Total Frames Experienced: 1103969
+Updated target weights.
+
+Episode: 130/1000, Epsilon: 0.515983, Mean Score: 5538, Mean Reward: -0.184516
+
+Episode: 131/1000, Epsilon: 0.513403, Mean Score: 5520, Mean Reward: -0.043491
+
+Episode: 132/1000, Epsilon: 0.510836, Mean Score: 5513, Mean Reward: -0.256214
+
+Episode: 133/1000, Epsilon: 0.508282, Mean Score: 5502, Mean Reward: -0.062864
+
+Episode: 134/1000, Epsilon: 0.505741, Mean Score: 5495, Mean Reward: -0.059581
+Total Frames Experienced: 1128489
+Updated target weights.
+
+Episode: 135/1000, Epsilon: 0.503212, Mean Score: 5491, Mean Reward: -0.271138
+
+Episode: 136/1000, Epsilon: 0.500696, Mean Score: 5492, Mean Reward: 0.009615
+
+Episode: 137/1000, Epsilon: 0.498193, Mean Score: 5481, Mean Reward: -0.138505
+
+Episode: 138/1000, Epsilon: 0.495702, Mean Score: 5469, Mean Reward: 0.010517
+
+Episode: 139/1000, Epsilon: 0.493223, Mean Score: 5483, Mean Reward: -0.120329
+Total Frames Experienced: 1148632
+Updated target weights.
+
+Episode: 140/1000, Epsilon: 0.490757, Mean Score: 5485, Mean Reward: 0.006213
+
+Episode: 141/1000, Epsilon: 0.488303, Mean Score: 5507, Mean Reward: -0.393589
+
+Episode: 142/1000, Epsilon: 0.485862, Mean Score: 5501, Mean Reward: -0.266263
+
+Episode: 143/1000, Epsilon: 0.483432, Mean Score: 5497, Mean Reward: -0.491900
+
+Episode: 144/1000, Epsilon: 0.481015, Mean Score: 5511, Mean Reward: -0.789050
+Total Frames Experienced: 1203852
+Updated target weights.
+
+Episode: 145/1000, Epsilon: 0.478610, Mean Score: 5506, Mean Reward: -0.486004
+
+Episode: 146/1000, Epsilon: 0.476217, Mean Score: 5498, Mean Reward: -0.712956
+
+Episode: 147/1000, Epsilon: 0.473836, Mean Score: 5504, Mean Reward: -0.054000
+
+Episode: 148/1000, Epsilon: 0.471467, Mean Score: 5501, Mean Reward: -0.344385
+
+Episode: 149/1000, Epsilon: 0.469109, Mean Score: 5494, Mean Reward: -0.260335
+Total Frames Experienced: 1245484
+Updated target weights.
+
+Episode: 150/1000, Epsilon: 0.466764, Mean Score: 5514, Mean Reward: -0.064940
+
+Episode: 151/1000, Epsilon: 0.464430, Mean Score: 5509, Mean Reward: -0.057262
+
+Episode: 152/1000, Epsilon: 0.462108, Mean Score: 5506, Mean Reward: -0.022072
+
+Episode: 153/1000, Epsilon: 0.459797, Mean Score: 5504, Mean Reward: -0.132748
+
+Episode: 154/1000, Epsilon: 0.457498, Mean Score: 5490, Mean Reward: -0.866950
+Total Frames Experienced: 1300882
+Updated target weights.
+
+Episode: 155/1000, Epsilon: 0.455211, Mean Score: 5476, Mean Reward: -0.841200
+
+Episode: 156/1000, Epsilon: 0.452935, Mean Score: 5470, Mean Reward: -0.139648
+
+Episode: 157/1000, Epsilon: 0.450670, Mean Score: 5470, Mean Reward: -0.079321
+
+Episode: 158/1000, Epsilon: 0.448417, Mean Score: 5468, Mean Reward: -0.085397
+
+Episode: 159/1000, Epsilon: 0.446175, Mean Score: 5460, Mean Reward: -0.122953
+Total Frames Experienced: 1323638
+Updated target weights.
+
+Episode: 160/1000, Epsilon: 0.443944, Mean Score: 5461, Mean Reward: 0.009565
+
+Episode: 161/1000, Epsilon: 0.441724, Mean Score: 5448, Mean Reward: -0.047920
+
+Episode: 162/1000, Epsilon: 0.439516, Mean Score: 5465, Mean Reward: -0.031011
+
+Episode: 163/1000, Epsilon: 0.437318, Mean Score: 5495, Mean Reward: -0.106863
+
+Episode: 164/1000, Epsilon: 0.435131, Mean Score: 5480, Mean Reward: -0.010339
+Total Frames Experienced: 1351026
+Updated target weights.
+
+Episode: 165/1000, Epsilon: 0.432956, Mean Score: 5484, Mean Reward: -0.415429
+
+Episode: 166/1000, Epsilon: 0.430791, Mean Score: 5469, Mean Reward: -0.835800
+
+Episode: 167/1000, Epsilon: 0.428637, Mean Score: 5471, Mean Reward: -0.017534
+
+Episode: 168/1000, Epsilon: 0.426494, Mean Score: 5474, Mean Reward: -0.039411
+
+Episode: 169/1000, Epsilon: 0.424361, Mean Score: 5467, Mean Reward: -0.061993
+Total Frames Experienced: 1393748
+Updated target weights.
+
+Episode: 170/1000, Epsilon: 0.422240, Mean Score: 5455, Mean Reward: -0.542088
+
+Episode: 171/1000, Epsilon: 0.420128, Mean Score: 5446, Mean Reward: -0.062062
+
+Episode: 172/1000, Epsilon: 0.418028, Mean Score: 5459, Mean Reward: -0.027428
+
+Episode: 173/1000, Epsilon: 0.415938, Mean Score: 5483, Mean Reward: -0.018663
+
+Episode: 174/1000, Epsilon: 0.413858, Mean Score: 5480, Mean Reward: -0.012542
+Total Frames Experienced: 1421178
+Updated target weights.
+
+Episode: 175/1000, Epsilon: 0.411789, Mean Score: 5494, Mean Reward: -0.005719
+
+Episode: 176/1000, Epsilon: 0.409730, Mean Score: 5499, Mean Reward: -0.077826
+
+Episode: 177/1000, Epsilon: 0.407681, Mean Score: 5488, Mean Reward: -0.779742
+
+Episode: 178/1000, Epsilon: 0.405643, Mean Score: 5481, Mean Reward: -0.564962
+
+Episode: 179/1000, Epsilon: 0.403614, Mean Score: 5499, Mean Reward: -0.395049
+Total Frames Experienced: 1478425
+Updated target weights.
+
+Episode: 180/1000, Epsilon: 0.401596, Mean Score: 5522, Mean Reward: -0.165538
+
+Episode: 181/1000, Epsilon: 0.399588, Mean Score: 5510, Mean Reward: -0.705677
+
+Episode: 182/1000, Epsilon: 0.397590, Mean Score: 5495, Mean Reward: -0.847982
+
+Episode: 183/1000, Epsilon: 0.395602, Mean Score: 5477, Mean Reward: -0.880250
+
+Episode: 184/1000, Epsilon: 0.393624, Mean Score: 5464, Mean Reward: -0.086035
+Total Frames Experienced: 1551902
+Updated target weights.
+
+Episode: 185/1000, Epsilon: 0.391656, Mean Score: 5458, Mean Reward: -0.761450
+
+Episode: 186/1000, Epsilon: 0.389698, Mean Score: 5449, Mean Reward: -0.857750
+
+Episode: 187/1000, Epsilon: 0.387750, Mean Score: 5434, Mean Reward: -0.357969
+
+Episode: 188/1000, Epsilon: 0.385811, Mean Score: 5419, Mean Reward: -0.859950
+
+Episode: 189/1000, Epsilon: 0.383882, Mean Score: 5406, Mean Reward: -0.840600
+Total Frames Experienced: 1638130
+Updated target weights.
+
+Episode: 190/1000, Epsilon: 0.381962, Mean Score: 5393, Mean Reward: -0.835550
+
+Episode: 191/1000, Epsilon: 0.380053, Mean Score: 5387, Mean Reward: -0.835750
+
+Episode: 192/1000, Epsilon: 0.378152, Mean Score: 5388, Mean Reward: -0.059973
+
+Episode: 193/1000, Epsilon: 0.376261, Mean Score: 5408, Mean Reward: 0.012770
+
+Episode: 194/1000, Epsilon: 0.374380, Mean Score: 5401, Mean Reward: -0.082045
+Total Frames Experienced: 1676729
+Updated target weights.
+
+Episode: 195/1000, Epsilon: 0.372508, Mean Score: 5402, Mean Reward: -0.345653
+
+Episode: 196/1000, Epsilon: 0.370646, Mean Score: 5398, Mean Reward: -0.276588
+
+Episode: 197/1000, Epsilon: 0.368793, Mean Score: 5395, Mean Reward: -0.216170
+
+Episode: 198/1000, Epsilon: 0.366949, Mean Score: 5406, Mean Reward: -0.298395
+
+Episode: 199/1000, Epsilon: 0.365114, Mean Score: 5394, Mean Reward: -0.847875
+Total Frames Experienced: 1734817
+Updated target weights.
+
+Episode: 200/1000, Epsilon: 0.363288, Mean Score: 5380, Mean Reward: -0.820291
+
+Episode: 201/1000, Epsilon: 0.361472, Mean Score: 5373, Mean Reward: -0.553425
+
+Episode: 202/1000, Epsilon: 0.359664, Mean Score: 5378, Mean Reward: -0.625400
+
+Episode: 203/1000, Epsilon: 0.357866, Mean Score: 5374, Mean Reward: -0.031589
+
+Episode: 204/1000, Epsilon: 0.356077, Mean Score: 5370, Mean Reward: -0.107237
+Total Frames Experienced: 1775529
+Updated target weights.
+
+Episode: 205/1000, Epsilon: 0.354296, Mean Score: 5364, Mean Reward: -0.036956
+
+Episode: 206/1000, Epsilon: 0.352525, Mean Score: 5359, Mean Reward: -0.146366
+
+Episode: 207/1000, Epsilon: 0.350762, Mean Score: 5347, Mean Reward: -0.193980
+
+Episode: 208/1000, Epsilon: 0.349008, Mean Score: 5351, Mean Reward: -0.117461
+
+Episode: 209/1000, Epsilon: 0.347263, Mean Score: 5343, Mean Reward: -0.062721
+Total Frames Experienced: 1799532
+Updated target weights.
+
+Episode: 210/1000, Epsilon: 0.345527, Mean Score: 5339, Mean Reward: -0.016860
+
+Episode: 211/1000, Epsilon: 0.343799, Mean Score: 5334, Mean Reward: -0.066442
+
+Episode: 212/1000, Epsilon: 0.342080, Mean Score: 5343, Mean Reward: -0.060056
+
+Episode: 213/1000, Epsilon: 0.340370, Mean Score: 5338, Mean Reward: -0.064804
+
+Episode: 214/1000, Epsilon: 0.338668, Mean Score: 5332, Mean Reward: -0.037076
+Total Frames Experienced: 1822245
+Updated target weights.
+
+Episode: 215/1000, Epsilon: 0.336975, Mean Score: 5320, Mean Reward: -0.076765
+
+Episode: 216/1000, Epsilon: 0.335290, Mean Score: 5311, Mean Reward: -0.080574
+
+Episode: 217/1000, Epsilon: 0.333614, Mean Score: 5383, Mean Reward: -0.078251
+
+Episode: 218/1000, Epsilon: 0.331946, Mean Score: 5370, Mean Reward: -0.064208
+
+Episode: 219/1000, Epsilon: 0.330286, Mean Score: 5371, Mean Reward: -0.111508
+Total Frames Experienced: 1850716
+Updated target weights.
+
+Episode: 220/1000, Epsilon: 0.328634, Mean Score: 5364, Mean Reward: -0.055266
+
+Episode: 221/1000, Epsilon: 0.326991, Mean Score: 5362, Mean Reward: 0.008516
+
+Episode: 222/1000, Epsilon: 0.325356, Mean Score: 5364, Mean Reward: -0.119942
+
+Episode: 223/1000, Epsilon: 0.323729, Mean Score: 5369, Mean Reward: 0.010974
+
+Episode: 224/1000, Epsilon: 0.322111, Mean Score: 5363, Mean Reward: -0.081685
+Total Frames Experienced: 1873357
+Updated target weights.
+
+Episode: 225/1000, Epsilon: 0.320500, Mean Score: 5367, Mean Reward: 0.008836
+
+Episode: 226/1000, Epsilon: 0.318898, Mean Score: 5369, Mean Reward: -0.035504
+
+Episode: 227/1000, Epsilon: 0.317303, Mean Score: 5360, Mean Reward: -0.087867
+
+Episode: 228/1000, Epsilon: 0.315717, Mean Score: 5372, Mean Reward: -0.048749
+
+Episode: 229/1000, Epsilon: 0.314138, Mean Score: 5378, Mean Reward: -0.024742
+Total Frames Experienced: 1896173
+Updated target weights.
+
+Episode: 230/1000, Epsilon: 0.312567, Mean Score: 5371, Mean Reward: -0.075146
+
+Episode: 231/1000, Epsilon: 0.311005, Mean Score: 5360, Mean Reward: -0.210458
+
+Episode: 232/1000, Epsilon: 0.309450, Mean Score: 5371, Mean Reward: 0.008353
+
+Episode: 233/1000, Epsilon: 0.307902, Mean Score: 5367, Mean Reward: -0.195365
+
+Episode: 234/1000, Epsilon: 0.306363, Mean Score: 5358, Mean Reward: -0.078915
+Total Frames Experienced: 1915981
+Updated target weights.
+
+Episode: 235/1000, Epsilon: 0.304831, Mean Score: 5349, Mean Reward: -0.011425
+
+Episode: 236/1000, Epsilon: 0.303307, Mean Score: 5359, Mean Reward: -0.136378
+
+Episode: 237/1000, Epsilon: 0.301790, Mean Score: 5355, Mean Reward: -0.005355
+
+Episode: 238/1000, Epsilon: 0.300281, Mean Score: 5354, Mean Reward: -0.305144
+
+Episode: 239/1000, Epsilon: 0.298780, Mean Score: 5354, Mean Reward: 0.011440
+Total Frames Experienced: 1941104
+Updated target weights.
+
+Episode: 240/1000, Epsilon: 0.297286, Mean Score: 5367, Mean Reward: -0.131737
+
+Episode: 241/1000, Epsilon: 0.295800, Mean Score: 5366, Mean Reward: -0.022098
+
+Episode: 242/1000, Epsilon: 0.294321, Mean Score: 5379, Mean Reward: -0.006354
+
+Episode: 243/1000, Epsilon: 0.292849, Mean Score: 5385, Mean Reward: 0.010410
+
+Episode: 244/1000, Epsilon: 0.291385, Mean Score: 5400, Mean Reward: 0.003472
+Total Frames Experienced: 1965718
+Updated target weights.
+
+Episode: 245/1000, Epsilon: 0.289928, Mean Score: 5394, Mean Reward: -0.116870
+
+Episode: 246/1000, Epsilon: 0.288478, Mean Score: 5393, Mean Reward: -0.062362
+
+Episode: 247/1000, Epsilon: 0.287036, Mean Score: 5389, Mean Reward: -0.015938
+
+Episode: 248/1000, Epsilon: 0.285601, Mean Score: 5397, Mean Reward: -0.112130
+
+Episode: 249/1000, Epsilon: 0.284173, Mean Score: 5395, Mean Reward: -0.013800
+Total Frames Experienced: 1987010
+Updated target weights.
+
+Episode: 250/1000, Epsilon: 0.282752, Mean Score: 5391, Mean Reward: -0.007583
+
+Episode: 251/1000, Epsilon: 0.281338, Mean Score: 5397, Mean Reward: -0.091470
+
+Episode: 252/1000, Epsilon: 0.279931, Mean Score: 5404, Mean Reward: -0.109833
+
+Episode: 253/1000, Epsilon: 0.278532, Mean Score: 5399, Mean Reward: -0.029551
+
+Episode: 254/1000, Epsilon: 0.277139, Mean Score: 5398, Mean Reward: 0.002963
+Total Frames Experienced: 2008434
+Updated target weights.
+
+Episode: 255/1000, Epsilon: 0.275753, Mean Score: 5397, Mean Reward: -0.061364
+
+Episode: 256/1000, Epsilon: 0.274375, Mean Score: 5394, Mean Reward: -0.122096
+
+Episode: 257/1000, Epsilon: 0.273003, Mean Score: 5397, Mean Reward: -0.093165
+
+Episode: 258/1000, Epsilon: 0.271638, Mean Score: 5389, Mean Reward: -0.154821
+
+Episode: 259/1000, Epsilon: 0.270280, Mean Score: 5395, Mean Reward: -0.059641
+Total Frames Experienced: 2032331
+Updated target weights.
+
+Episode: 260/1000, Epsilon: 0.268928, Mean Score: 5386, Mean Reward: -0.138584
+
+Episode: 261/1000, Epsilon: 0.267583, Mean Score: 5381, Mean Reward: -0.141627
+
+Episode: 262/1000, Epsilon: 0.266246, Mean Score: 5389, Mean Reward: 0.011649
+
+Episode: 263/1000, Epsilon: 0.264914, Mean Score: 5388, Mean Reward: -0.224251
+
+Episode: 264/1000, Epsilon: 0.263590, Mean Score: 5389, Mean Reward: -0.282099
+Total Frames Experienced: 2058536
+Updated target weights.
+
+Episode: 265/1000, Epsilon: 0.262272, Mean Score: 5385, Mean Reward: -0.151179
+
+Episode: 266/1000, Epsilon: 0.260960, Mean Score: 5396, Mean Reward: -0.172667
+
+Episode: 267/1000, Epsilon: 0.259656, Mean Score: 5390, Mean Reward: -0.145555
+
+Episode: 268/1000, Epsilon: 0.258357, Mean Score: 5389, Mean Reward: -0.132815
+
+Episode: 269/1000, Epsilon: 0.257066, Mean Score: 5382, Mean Reward: -0.029420
+Total Frames Experienced: 2082313
+Updated target weights.
+
+Episode: 270/1000, Epsilon: 0.255780, Mean Score: 5380, Mean Reward: -0.096346
+
+Episode: 271/1000, Epsilon: 0.254501, Mean Score: 5374, Mean Reward: -0.108576
+
+Episode: 272/1000, Epsilon: 0.253229, Mean Score: 5367, Mean Reward: -0.110719
+
+Episode: 273/1000, Epsilon: 0.251963, Mean Score: 5362, Mean Reward: -0.034222
+
+Episode: 274/1000, Epsilon: 0.250703, Mean Score: 5353, Mean Reward: -0.086343
+Total Frames Experienced: 2105504
+Updated target weights.
+
+Episode: 275/1000, Epsilon: 0.249449, Mean Score: 5346, Mean Reward: -0.128306
+
+Episode: 276/1000, Epsilon: 0.248202, Mean Score: 5340, Mean Reward: -0.369041
+
+Episode: 277/1000, Epsilon: 0.246961, Mean Score: 5329, Mean Reward: -0.079496
+
+Episode: 278/1000, Epsilon: 0.245726, Mean Score: 5323, Mean Reward: -0.014613
+
+Episode: 279/1000, Epsilon: 0.244498, Mean Score: 5320, Mean Reward: -0.587608
+Total Frames Experienced: 2139031
+Updated target weights.
+
+Episode: 280/1000, Epsilon: 0.243275, Mean Score: 5316, Mean Reward: -0.014947
+
+Episode: 281/1000, Epsilon: 0.242059, Mean Score: 5309, Mean Reward: -0.118641
+
+Episode: 282/1000, Epsilon: 0.240849, Mean Score: 5303, Mean Reward: -0.156270
+
+Episode: 283/1000, Epsilon: 0.239644, Mean Score: 5298, Mean Reward: -0.012046
+
+Episode: 284/1000, Epsilon: 0.238446, Mean Score: 5294, Mean Reward: -0.099738
+Total Frames Experienced: 2164718
+Updated target weights.
+
+Episode: 285/1000, Epsilon: 0.237254, Mean Score: 5294, Mean Reward: -0.046195
+
+Episode: 286/1000, Epsilon: 0.236068, Mean Score: 5290, Mean Reward: -0.046536
+
+Episode: 287/1000, Epsilon: 0.234887, Mean Score: 5287, Mean Reward: -0.140554
+
+Episode: 288/1000, Epsilon: 0.233713, Mean Score: 5288, Mean Reward: -0.067366
+
+Episode: 289/1000, Epsilon: 0.232544, Mean Score: 5288, Mean Reward: -0.056488
+Total Frames Experienced: 2187966
+Updated target weights.
+
+Episode: 290/1000, Epsilon: 0.231381, Mean Score: 5281, Mean Reward: -0.106632
+
+Episode: 291/1000, Epsilon: 0.230225, Mean Score: 5275, Mean Reward: -0.076942
+
+Episode: 292/1000, Epsilon: 0.229073, Mean Score: 5269, Mean Reward: -0.157558
+
+Episode: 293/1000, Epsilon: 0.227928, Mean Score: 5266, Mean Reward: -0.314865
+
+Episode: 294/1000, Epsilon: 0.226788, Mean Score: 5264, Mean Reward: -0.145714
+Total Frames Experienced: 2218150
+Updated target weights.
+
+Episode: 295/1000, Epsilon: 0.225655, Mean Score: 5260, Mean Reward: -0.664902
+
+Episode: 296/1000, Epsilon: 0.224526, Mean Score: 5263, Mean Reward: -0.394322
+
+Episode: 297/1000, Epsilon: 0.223404, Mean Score: 5255, Mean Reward: -0.851627
+
+Episode: 298/1000, Epsilon: 0.222287, Mean Score: 5256, Mean Reward: -0.319734
+
+Episode: 299/1000, Epsilon: 0.221175, Mean Score: 5249, Mean Reward: -0.351751
+Total Frames Experienced: 2272053
+Updated target weights.
+
+Episode: 300/1000, Epsilon: 0.220069, Mean Score: 5243, Mean Reward: -0.570215
+
+Episode: 301/1000, Epsilon: 0.218969, Mean Score: 5237, Mean Reward: -0.574305
+
+Episode: 302/1000, Epsilon: 0.217874, Mean Score: 5231, Mean Reward: -0.828275
+
+Episode: 303/1000, Epsilon: 0.216785, Mean Score: 5221, Mean Reward: -0.803214
+
+Episode: 304/1000, Epsilon: 0.215701, Mean Score: 5212, Mean Reward: -0.825164
+Total Frames Experienced: 2338710
+Updated target weights.
+
+Episode: 305/1000, Epsilon: 0.214622, Mean Score: 5203, Mean Reward: -0.675351
+
+Episode: 306/1000, Epsilon: 0.213549, Mean Score: 5197, Mean Reward: -0.085526
+
+Episode: 307/1000, Epsilon: 0.212481, Mean Score: 5196, Mean Reward: -0.224473
+
+Episode: 308/1000, Epsilon: 0.211419, Mean Score: 5190, Mean Reward: -0.424254
+
+Episode: 309/1000, Epsilon: 0.210362, Mean Score: 5192, Mean Reward: -0.026460
+Total Frames Experienced: 2362967
+Updated target weights.
+
+Episode: 310/1000, Epsilon: 0.209310, Mean Score: 5186, Mean Reward: -0.017736
+
+Episode: 311/1000, Epsilon: 0.208264, Mean Score: 5183, Mean Reward: -0.133215
+
+Episode: 312/1000, Epsilon: 0.207222, Mean Score: 5179, Mean Reward: -0.204649
+
+Episode: 313/1000, Epsilon: 0.206186, Mean Score: 5175, Mean Reward: -0.281193
+
+Episode: 314/1000, Epsilon: 0.205155, Mean Score: 5182, Mean Reward: -0.171622
+Total Frames Experienced: 2408333
+Updated target weights.
+
+Episode: 315/1000, Epsilon: 0.204129, Mean Score: 5173, Mean Reward: -0.786250
+
+Episode: 316/1000, Epsilon: 0.203109, Mean Score: 5166, Mean Reward: -0.620035
+
+Episode: 317/1000, Epsilon: 0.202093, Mean Score: 5157, Mean Reward: -0.794500
+
+Episode: 318/1000, Epsilon: 0.201083, Mean Score: 5152, Mean Reward: -0.036556
+
+Episode: 319/1000, Epsilon: 0.200077, Mean Score: 5148, Mean Reward: -0.166141
+Total Frames Experienced: 2458432
+Updated target weights.
+
+Episode: 320/1000, Epsilon: 0.199077, Mean Score: 5146, Mean Reward: -0.354116
+
+Episode: 321/1000, Epsilon: 0.198082, Mean Score: 5142, Mean Reward: -0.356475
+
+Episode: 322/1000, Epsilon: 0.197091, Mean Score: 5136, Mean Reward: -0.203181
+
+Episode: 323/1000, Epsilon: 0.196106, Mean Score: 5129, Mean Reward: -0.165240
+
+Episode: 324/1000, Epsilon: 0.195125, Mean Score: 5124, Mean Reward: -0.414811
