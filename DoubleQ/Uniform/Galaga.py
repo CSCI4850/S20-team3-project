@@ -23,28 +23,31 @@ def main():
 
     action_space = env.action_space.n if params['USE_FULL_ACTION_SPACE'] else params['SMALL_ACTION_SPACE']
     env.action_space = spaces.Discrete(action_space)
+    # Epsilon Data
     epsilon = params['EPSILON']
     epsilon_gamma = params['EPSILON_GAMMA']
     epsilon_min = params['EPSILON_MIN']
+    # Epoch Length Data
     epochs = params['EPOCHS']
     epoch_length = params['EPOCH_MAX_LENGTH']
     use_time_cutoff = params['USE_TIME_CUTOFF']
-
+    # Image Formatting Data
     img_width = params['IMG_WIDTH']
     img_height = params['IMG_HEIGHT']
     channels = 1 if params['GRAYSCALE'] else 3
-    input_space = (env.observation_space.shape[0])
-
+    # Experience Replay Data
     replay_iterations = params['REPLAY_ITERATIONS']
     replay_sample_size = params['REPLAY_SAMPLE_SIZE']
     replay_memory_size = params['REPLAY_MEMORY_SIZE']
-
+    # Q-Learning Data
     q_learning_gamma = params['Q_LEARNING_GAMMA']
     frames_since_score_limit = params['FRAMES_SINCE_SCORE_LIMIT']
 
+    # Network Initialization
     model = GalagaAgent(action_space, img_width, img_height, channels)
     target = GalagaAgent(action_space, img_width, img_height, channels)
 
+    # Logging Initialization
     logpath = log_create()
     log_params(logpath, model.get_summary())
 
@@ -59,6 +62,7 @@ def main():
 
     frame_count = 0
 
+    # Training loop
     for epoch in range(epochs):
         state = env.reset();
         done = False
@@ -67,6 +71,7 @@ def main():
         time = 0
         reward_window = deque(maxlen=epoch_length)
 
+        # Play loop
         while not done:
             state = preprocess(state, img_width, img_height, channels)
 
@@ -85,17 +90,13 @@ def main():
                 time_since_score_up = 0
 
             if time_since_score_up >= frames_since_score_limit:
-                reward -= 1
+                reward -= 10
 
-            if reward > 0: # Bound reward [-1,1]
+            if reward > 0: # Bound reward [-10,1]
                 reward = 1
 
             reward_window.append(reward)
             last_score = info['score']
-
-            # Get the model_Q if it our action was random
-#            if not type(model_Q) is np.ndarray:
-#                model_Q = model.predict(state)
 
             pp_next = preprocess(next_state, img_width, img_height, channels)
             memory.remember(state, int(action/3), reward, pp_next, done)

@@ -8,10 +8,7 @@ And all their dependencies. These are available in the requirements.txt
 
 ## Automatic setup
 
-A bash file, setup.sh, has been provided to setup the virtual environment and
-edit the Galaga gym-retro environment for you. To use this, ensure you have
-virtualenv and python3.7 installed, then simply run the
-script:
+A bash file, setup.sh, has been provided to setup the virtual environment and edit the Galaga gym-retro environment for you. To use this, ensure you have virtualenv and python3.7 installed, then simply run the script:
 
     ./setup.sh
 
@@ -19,13 +16,11 @@ Then, you must activate the virtual environment:
 
     source venv/bin/activate
 
-After virtual environment is active, if you would like to see a short (5
-episode) demo, run the demo.sh script:
+After virtual environment is active, if you would like to see a short demo, of each network, run the demo.py file:
 
-    ./demo.sh
+    ./demo/demo.py
 
-Or, step into either SingleQ/Uniform/ or
-SingleQ/Prioritized/ and use:
+Or, step into either SingleQ/Uniform/ or SingleQ/Prioritized/ and use:
 
     ./Galaga.py
     
