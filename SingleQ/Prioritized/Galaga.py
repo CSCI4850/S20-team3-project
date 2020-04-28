@@ -23,43 +23,46 @@ def main():
 
     action_space = env.action_space.n if params['USE_FULL_ACTION_SPACE'] else params['SMALL_ACTION_SPACE']
     env.action_space = spaces.Discrete(action_space)
+    # Epsilon Data
     epsilon = params['EPSILON']
     epsilon_gamma = params['EPSILON_GAMMA']
     epsilon_min = params['EPSILON_MIN']
+    # Epoch Length Data
     epochs = params['EPOCHS']
     epoch_length = params['EPOCH_MAX_LENGTH']
     use_time_cutoff = params['USE_TIME_CUTOFF']
-
+    # Input Formatting Data
     img_width = params['IMG_WIDTH']
     img_height = params['IMG_HEIGHT']
     channels = 1 if params['GRAYSCALE'] else 3
-    input_space = (env.observation_space.shape[0])
-
+    # Experience Replay Data
     replay_iterations = params['REPLAY_ITERATIONS']
     replay_sample_size = params['REPLAY_SAMPLE_SIZE']
     replay_memory_size = params['REPLAY_MEMORY_SIZE']
     replay_alpha = params['REPLAY_ALPHA']
     replay_beta = params['REPLAY_BETA']
-
+    # Q-Learning Data
     q_learning_gamma = params['Q_LEARNING_GAMMA']
     frames_since_score_limit = params['FRAMES_SINCE_SCORE_LIMIT']
     
-
+    # Network Initialization and resuming status
     model = GalagaAgent(action_space, img_width, img_height, channels)
     target = GalagaAgent(action_space, img_width, img_height, channels)
     target.set_weights(model.get_weights())
     model.load_weights('m_weights.h5')
     target.load_weights('t_weights.h5')
 
+    # Logging initialization
     logpath = log_create()
     log_params(logpath, model.get_summary())
 
     memory = ReplayMemory(replay_memory_size, params['REPLAY_EPSILON'])
 
+    # Progress Tracking Data
     score_window = deque(maxlen=epochs)
-
     frame_count = 0
 
+    # Training loop
     for epoch in range(epochs):
         state = env.reset();
         done = False
@@ -68,6 +71,7 @@ def main():
         time = 0
         reward_window = deque(maxlen=epoch_length)
 
+        # Play loop
         while not done:
             state = preprocess(state, img_width, img_height, channels)
             chance = np.random.random()
