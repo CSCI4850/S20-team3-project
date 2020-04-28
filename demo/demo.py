@@ -10,6 +10,7 @@ import numpy as np
 from collections import deque
 
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH']='true'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 sys.path.append('../') # Get top-level
 from HyperParameters import *
 from utils import preprocess, map_actions, log_create, log_params, log_output
@@ -39,7 +40,7 @@ def main():
     replay_memory_size = params['REPLAY_MEMORY_SIZE']
     score_window = deque(maxlen=replay_memory_size)
     
-    epochs = 5
+    epochs = 1
     epoch_length = 10000
     frame_count = 0
     for i in range(4):
