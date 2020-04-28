@@ -1,0 +1,81 @@
+Log created: 2020-04-21 15:20:13.116646
+
+SUMMARY:
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              (None, 78, 78, 64)        3200      
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) (None, 39, 39, 64)        0         
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 35, 35, 32)        51232     
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 31, 31, 16)        12816     
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 15, 15, 16)        0         
+_________________________________________________________________
+flatten (Flatten)            (None, 3600)              0         
+_________________________________________________________________
+dense (Dense)                (None, 1024)              3687424   
+_________________________________________________________________
+dense_1 (Dense)              (None, 512)               524800    
+_________________________________________________________________
+dense_2 (Dense)              (None, 6)                 3078      
+=================================================================
+Total params: 4,282,550
+Trainable params: 4,282,550
+Non-trainable params: 0
+_________________________________________________________________
+
+HYPER PARAMETERS:
+params = {
+    # --- Input Image Parameters ---
+    'IMG_WIDTH': 84,
+    'IMG_HEIGHT': 84,
+    'GRAYSCALE': True,
+    # --- Epsilon Parameters ---
+    'EPSILON': 0.99,
+    'EPSILON_GAMMA': 0.995,
+    'EPSILON_MIN': 0.01,
+    # --- Training Parameters ---
+    'EPOCHS': 1000,
+    'EPOCH_MAX_LENGTH': 20000,
+    'LEARNING_RATE': 0.00025,
+    'USE_TIME_CUTOFF': True,
+    'Q_LEARNING_GAMMA': 0.99,
+    'FRAMES_SINCE_SCORE_LIMIT': 500,
+    # --- Memory Replay Parameters ---
+    'REPLAY_ITERATIONS': 4,
+    'REPLAY_SAMPLE_SIZE': 8,
+    'REPLAY_MEMORY_SIZE': 100000,
+    'REPLAY_ALPHA': 0.6,
+    'REPLAY_BETA': 0.1,
+    'REPLAY_EPSILON': 0.01,
+    'TARGET_UPDATE_EVERY': 5,
+    # --- Constant Parameters ---
+    'ENVIRONMENT': 'GalagaDemonsOfDeath-Nes',
+    'USE_FULL_ACTION_SPACE': False,
+    'SMALL_ACTION_SPACE': 6,
+    'NUMPY_SEED': 1239,
+    # --- Huber Loss Parameters ---
+    'HUBER_DELTA':1.0,
+}
+
+
+OUTPUTS:
+Episode: 1/1000, Epsilon: 0.985050, Mean Score: 3410, Mean Reward: -0.061083
+Episode: 2/1000, Epsilon: 0.980125, Mean Score: 6705, Mean Reward: -0.019549
+Episode: 3/1000, Epsilon: 0.975224, Mean Score: 6263, Mean Reward: -0.006003
+Episode: 4/1000, Epsilon: 0.970348, Mean Score: 6395, Mean Reward: -0.117158
+Total Frames Experienced: 25170
+Updated target weights.
+Episode: 5/1000, Epsilon: 0.965496, Mean Score: 6780, Mean Reward: -0.093170
+Episode: 6/1000, Epsilon: 0.960669, Mean Score: 6241, Mean Reward: -0.107306
+Episode: 7/1000, Epsilon: 0.955865, Mean Score: 6111, Mean Reward: 0.006677
+Episode: 8/1000, Epsilon: 0.951086, Mean Score: 5966, Mean Reward: -0.004386
+Episode: 9/1000, Epsilon: 0.946331, Mean Score: 7515, Mean Reward: -0.069109
+Total Frames Experienced: 51412
+Updated target weights.
+Episode: 10/1000, Epsilon: 0.941599, Mean Score: 7220, Mean Reward: 0.008395
+Episode: 11/1000, Epsilon: 0.936891, Mean Score: 6874, Mean Reward: -0.056815
