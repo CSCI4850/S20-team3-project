@@ -37,12 +37,9 @@ class ReplayMemory:
             is_weights = importance[indices]
 
             innerQ = model.predict(next_state)
-            #print("model.predict : ", model.predict(next_state)[0])
-            #print("np.argmax : ", np.argmax(model.predict(next_state)))
-            #print("innerQ[0] : ", innerQ[0])
-            targetQ = target_model.predict(next_state)[[np.argmax(row) for row in innerQ]]
+            targetQ = target.predict(next_state)[[np.argmax(row) for row in innerQ]]
             
-            targets = is_weights * (reward + gamma * (targetQ - np.amax(model_targets))) + np.amax(model_targets) # TD-Error
+            targets = is_weights * (reward + gamma * (np.amax(targetQ) - np.amax(model_targets))) + np.amax(model_targets) # TD-Error
             errors = targets
             targets[done] = reward[done]
 

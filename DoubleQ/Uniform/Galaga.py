@@ -23,10 +23,10 @@ def main():
 
     action_space = env.action_space.n if params['USE_FULL_ACTION_SPACE'] else params['SMALL_ACTION_SPACE']
     env.action_space = spaces.Discrete(action_space)
-    epsilon = params['EPSILON']
+    epsilon = .3
     epsilon_gamma = params['EPSILON_GAMMA']
     epsilon_min = params['EPSILON_MIN']
-    epochs = params['EPOCHS']
+    epochs = 100
     epoch_length = params['EPOCH_MAX_LENGTH']
     use_time_cutoff = params['USE_TIME_CUTOFF']
 
