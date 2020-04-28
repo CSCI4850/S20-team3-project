@@ -23,7 +23,7 @@ def main():
 
     action_space = env.action_space.n if params['USE_FULL_ACTION_SPACE'] else params['SMALL_ACTION_SPACE']
     env.action_space = spaces.Discrete(action_space)
-    epsilon = 0
+    epsilon = params['EPSILON']
     epsilon_gamma = params['EPSILON_GAMMA']
     epsilon_min = params['EPSILON_MIN']
     epochs = params['EPOCHS']
@@ -67,8 +67,6 @@ def main():
         reward_window = deque(maxlen=epoch_length)
 
         while not done:
-            print("STATE: ")
-            print(state)
             state = preprocess(state, img_width, img_height, channels)
             chance = np.random.random()
 
