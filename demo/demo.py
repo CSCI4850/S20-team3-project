@@ -73,10 +73,8 @@ def main():
                 env.render()
 
             score_window.append(info['score'])
-            mean_score = np.mean(score_window)
             
-            print("\rEpisode: %d/%d, Mean Score: %d, Mean Reward: %f" % (epoch+1, epochs, mean_score, np.mean(reward_window)))
-    
+            print("\rEpisode: %d/%d, Score: %d" % (epoch+1, epochs, info['score']))  
 
 if __name__ == "__main__":
     np.random.seed(params['NUMPY_SEED'])
