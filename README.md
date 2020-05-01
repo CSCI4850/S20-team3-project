@@ -78,6 +78,8 @@ Parameters and training regiments will be standardized across all
 implementations to ensure reproducability and comparability.
 
 ## References
-[1]: https://github.com/openai/atari-py/blob/master/doc/manual/manual.pdf
-[2]: https://arxiv.org/abs/1511.05952
-[3]: https://arxiv.org/abs/1509.06461f
+1: https://github.com/openai/atari-py/blob/master/doc/manual/manual.pdf
+
+2: https://arxiv.org/abs/1511.05952
+
+3: https://arxiv.org/abs/1509.06461f
