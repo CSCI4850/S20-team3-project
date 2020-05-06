@@ -1,8 +1,9 @@
 # S20-team3-project
 
-Required Packages:
+Requirements:
 
-    everything in the requirements.txt
+    python 3.7
+    virtualenv
         
 And all their dependencies. These are available in the requirements.txt
 
@@ -16,11 +17,11 @@ Then, you must activate the virtual environment:
 
     source venv/bin/activate
 
-After virtual environment is active, if you would like to see a short demo, of each network, run the demo.py file:
+Once the virtual environment is active, if you would like to see a short demo of each network, run the demo.py file:
 
     ./demo/demo.py
 
-Or, step into either SingleQ/Uniform/ or SingleQ/Prioritized/ and use:
+Or to experience training, step into either SingleQ/ or DoubleQ/, and further into either Uniform/ or Prioritized/ and use:
 
     ./Galaga.py
     
@@ -42,7 +43,9 @@ install requirements:
     
     pip3 install -r requirements.txt
     
-import the rom:
+edit the documents noted within setup.sh to meet the environment requirements.
+    
+Finally, import the rom:
 
     python3 -m retro.import 'Galaga - Demons of Death (USA).nes'
 
